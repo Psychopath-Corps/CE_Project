@@ -29,7 +29,7 @@ struct DisplayView: View {
                 UIView()
             }
             if data.display == "Debug" {
-                
+                PlayView()
             }
         }
     }

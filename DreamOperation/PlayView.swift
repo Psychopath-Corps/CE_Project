@@ -29,7 +29,9 @@ struct PlayView: View {
                         .frame(width: 40, height: 80)
                         .position(x: data.stepPosi[data.pinposi.b].x, y: data.stepPosi[data.pinposi.b].y-w/40)
                 }
+
             }.position(x: data.mapPosi.x, y: data.mapPosi.y)
+            
             HStack{
                 VStack{
                     Button("↑"){data.mapPosi.y+=50}

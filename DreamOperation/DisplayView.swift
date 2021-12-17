@@ -7,8 +7,17 @@
 
 import SwiftUI
 
+class Observer: ObservableObject {
+    private init(){ }
+    
+    static let data = Observer()
+    
+    @Published var display = "Opening"
+    
+}
+
 struct DisplayView: View {
-    @ObservedObject var data = GameManager()
+    @ObservedObject var data: Observer = .data
     var body: some View {
         ZStack{
             if data.display == "Opening" {

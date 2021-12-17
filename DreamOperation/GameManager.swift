@@ -8,9 +8,12 @@
 import SwiftUI
 
 class GameManager: ObservableObject {
+    
+    
     /// サイコロロジック
     func saicoro(max: Int) -> Int {
         let saicoro = Int.random(in: 1...max)
         return saicoro
     }
+    
 }

@@ -11,63 +11,57 @@ struct PlayView: View {
     @ObservedObject var data: Observer = .data
     let w = UIScreen.main.bounds.width
     let h = UIScreen.main.bounds.height
+    
+    @State var stepPosi: [(x:CGFloat, y: CGFloat)] = []
+    @State var isPosi = false
+    
     @State var mapPosi = (x: CGFloat(0), y: CGFloat(0))
     // stepの座標に合わせる
     @State var pin1 = (x: CGFloat(0), y: CGFloat(0))
     @State var pin2 = (x: CGFloat(0), y: CGFloat(0))
-    
-    @State var moving = (x: CGFloat(0), y: CGFloat(0))
+    @State var pinposi = (a: 0,b: 0,c: 0,d: 0)
     var body: some View {
         ZStack{
             Group{
-                Image("mapImage")
-                    .resizable()
-                    .frame(width: w*2, height: w)
-                    .border(Color.black)
-                    
-                mapView()
-                    
-                Image("pinImage")
-                    .resizable()
-                    .frame(width: 40, height: 80)
-                    .position(x: pin1.x,
-                              y: pin1.y)
-                Image("pinImage")
-                    .resizable()
-                    .frame(width: 40, height: 80)
-                    .position(x: pin2.x,
-                              y: pin2.y)
-            }.position(x: moving.x,
-                       y: moving.y)
+                if isPosi{
+                    ForEach(0..<66){ num in
+                        box(posi: stepPosi[num], n: num)
+                    }
+                    Image("pinImage")
+                        .resizable()
+                        .frame(width: 40, height: 80)
+                        .position(x: stepPosi[pinposi.a].x, y: stepPosi[pinposi.a].y-w/40)
+                    Image("pinImage")
+                        .resizable()
+                        .frame(width: 40, height: 80)
+                        .position(x: stepPosi[pinposi.b].x, y: stepPosi[pinposi.b].y-w/40)
+                }
+            }.position(x: mapPosi.x, y: mapPosi.y)
             HStack{
-            VStack{
-                Button("↑"){moving.y+=50}
-                HStack{
-                    Button("←"){moving.x+=50}
-                    Button("○"){moving=(x: 0, y: 0)}
-                    Button("→"){moving.x-=50}
+                VStack{
+                    Button("↑"){mapPosi.y+=50}
+                    HStack{
+                        Button("←"){mapPosi.x+=50}
+                        Button("○"){mapPosi=(x: w/2, y: h/2)}
+                        Button("→"){mapPosi.x-=50}
+                    }
+                    Button("↓"){mapPosi.y-=50}
                 }
-                Button("↓"){moving.y-=50}
-            }
             
             VStack{
-                Button("↑"){pin1.y-=50}
                 HStack{
-                    Button("←"){pin1.x-=50}
+                    Button("←"){if pinposi.a>=1{pinposi.a-=1}}
                     Button("1"){}
-                    Button("→"){pin1.x+=50}
+                    Button("→"){pinposi.a+=1}
                 }
-                Button("↓"){pin1.y+=50}
             }
             
             VStack{
-                Button("↑"){pin2.y-=50}
                 HStack{
-                    Button("←"){pin2.x-=50}
+                    Button("←"){if pinposi.b>=1{pinposi.b-=1}}
                     Button("2"){}
-                    Button("→"){pin2.x+=50}
+                    Button("→"){pinposi.b+=1}
                 }
-                Button("↓"){pin2.y+=50}
             }
             }// HS
             
@@ -90,20 +84,43 @@ struct PlayView: View {
                         Text("x:\(pin2.x) ")
                         Text("y:\(pin2.y) ")
                     }
-                    VStack{
-                        Text("View座標")
-                        Text("x:\(moving.x)")
-                        Text("y:\(moving.y)")
-                    }
                     Spacer()
                 }
                 Spacer()
             }
         }.onAppear{
-            moving = (x: w, y: -w/10)
-            pin1 = (x: -200, y: 500)
-            pin2 = (x: -250, y: 500)
+            mapPosi = (x: w/2, y: -h)
+            createPosi()
         }
+    }
+    func createPosi() {
+        // 0~20
+        for i in 0...20{
+            let new = (x: w/10 * CGFloat(i), y: w)
+            stepPosi.append(new)
+        }
+        // 21~30
+        for i in 1...10{
+            let new = (x: w * 2, y: w - w/10 * CGFloat(i))
+            stepPosi.append(new)
+        }
+        //31~50
+        for i in 1...20{
+            let new = (x: w*2 - w/10 * CGFloat(i), y: CGFloat(0))
+            stepPosi.append(new)
+        }
+        // 51~55
+        for i in 1...5{
+            let new = (x: CGFloat(0), y: w/10 * CGFloat(i))
+            stepPosi.append(new)
+        }
+        // 56~65
+        for i in 1...10{
+            let new = (x: w/10 * CGFloat(i), y: w/2)
+            stepPosi.append(new)
+        }
+        //mapPosi = (x: w/2, y: -h)
+        isPosi = true
     }
 }
 

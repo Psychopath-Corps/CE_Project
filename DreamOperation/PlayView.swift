@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayView: View {
-    @ObservedObject var data = GameManager()
+    @ObservedObject var data: Observer = .data
     let w = UIScreen.main.bounds.width
     let h = UIScreen.main.bounds.height
     
@@ -37,6 +37,7 @@ struct PlayView: View {
                         .position(x: stepPosi[pinposi.b].x, y: stepPosi[pinposi.b].y-w/40)
                 }
             }.position(x: mapPosi.x, y: mapPosi.y)
+            
             HStack{
                 VStack{
                     Button("↑"){mapPosi.y+=50}

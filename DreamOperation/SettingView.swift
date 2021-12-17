@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct SettingView: View {
-    @ObservedObject var data = GameManager()
+    @ObservedObject var data: Observer = .data
     var body: some View {
         ZStack{
             VStack{
                 Text("設定")
                 Button("PLAY"){
-                    self.data.display = "Play"
+                    data.display = "Play"
                 }
             }
         }

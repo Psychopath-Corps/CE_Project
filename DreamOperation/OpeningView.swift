@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OpeningView: View {
-    @ObservedObject var data: Observer = .data
+    @ObservedObject var data = GameManager()
     var body: some View {
         ZStack{
             VStack{

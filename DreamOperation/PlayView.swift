@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayView: View {
-    @ObservedObject var data: Observer = .data
+    @ObservedObject var data = GameManager()
     let w = UIScreen.main.bounds.width
     let h = UIScreen.main.bounds.height
     

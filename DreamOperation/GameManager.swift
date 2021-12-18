@@ -18,37 +18,39 @@ class GameManager: ObservableObject {
     @Published var position = CGSize.zero
     /// ターン画面に遷移
     @Published var isMovingTurn = false
+    @Published var two = false
     
     /// 横の画面サイズを取得
     let w = UIScreen.main.bounds.width
     /// 縦の画面サイズを取得
     let h = UIScreen.main.bounds.height
     
-    /// 初期位置を決める
-    @GestureState var dragOffset = CGSize(width: 375, height: -660)
     /// プレイヤーのステータス
     @Published var pins:[(num: Int, name: String, color: String, style: String,
                           place: Int, money: Int, health: Int,
                           salary: Int, pay: Int, follow1: String, follow2: String)] = []
     
-    
+    /// 初期位置を決める
+    @Published var dragOffset = CGSize(width: 379.8, height: -660)
     @Published var stepPosi: [(x:CGFloat, y: CGFloat)] = []
     
-    @Published var mapPosi = (x: CGFloat(55), y: CGFloat(-655))
+    @Published var mapPosi = (x: CGFloat(0), y: CGFloat(0))
     /// stepの座標に合わせる
     @Published var pin1 = (x: CGFloat(0), y: CGFloat(0))
     @Published var pin2 = (x: CGFloat(0), y: CGFloat(0))
-    @Published var pinposi = (a: 0,b: 0,c: 0,d: 0)
+    @Published var pinposi = [0, 0, 0, 0]
+    @Published var pinNumber = 0
     @Published var playing = 1
     
     /// 画面を切り替えるための
     @Published var gamen = "setting"
+    @Published var walk = false
     /// サイコロを振る画面の表示の有無
     @Published var diceroll = false
     
     /// プレイヤーのライフ
     let health = 9
-    
+    @Published var appear = false
     /// タイマー
     @Published var timer: Timer!
     @Published var timerCount = 0.0
@@ -123,18 +125,56 @@ class GameManager: ObservableObject {
     }
     
     /// 画像の座標を取得し、ターン開始の時にその座標へ移動させる処理
-    func pinXY(dragX: CGSize, dragY: CGSize) {
+    func pinXY(a: Int) {
+        
+        // 0~20
+        if pinposi[a] <= 20{
+            dragOffset.width = 379.8 - CGFloat(pinposi[a]) * 84.4
+            position.width = 0
+            dragOffset.height = -660
+            position.height = 0
+        }
+        // 21~30
+        else if pinposi[a] <= 30{
+            dragOffset.width = -1308.2
+            position.width = 0
+            dragOffset.height = -660 + CGFloat(pinposi[a] - 20) * 84.4
+            position.height = 0
+        }
+        //31~50
+        else if pinposi[a] <= 50{
+            dragOffset.width = -1308.2 + CGFloat(pinposi[a] - 30) * 84.4
+            position.width = 0
+            dragOffset.height = 184
+            position.height = 0
+        }
+        else if pinposi[a] <= 55{
+            dragOffset.width =  379.8
+            position.width = 0
+            dragOffset.height = 184 - CGFloat(pinposi[a] - 50) * 84.4
+            position.height = 0
+        }
+        else if pinposi[a] <= 65{
+            dragOffset.width =  379.8 - CGFloat(pinposi[a] - 55) * 84.4
+            position.width = 0
+            dragOffset.height = -238
+            position.height = 0
+        }
         
     }
-    
     /// マスを進める処理
-    func step(dice: Int) {
+    func step(dices: Int) {
         self.timer?.invalidate()
-        self.timerCount = Double(dice)
+        self.timerCount = Double(dices)
         self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true){ _ in
             self.timerCount -= 1
             print(self.timerCount)
-            self.pinposi.a += 1
+            // ゴールした場合マスを進めない
+            if self.pinposi[self.pinNumber] <= 64 {
+                self.pinposi[self.pinNumber] += 1
+            }
+            // ピンと同時にマップも移動させる
+            self.pinXY(a: self.pinNumber)
             if self.timerCount == 0 {
                 self.timer?.invalidate()
                 self.timer = nil
@@ -145,7 +185,7 @@ class GameManager: ObservableObject {
     }
     
     func spot(num: Int) {
-
+        
     }
     
     /// マスを生成
@@ -176,6 +216,7 @@ class GameManager: ObservableObject {
             stepPosi.append(new)
         }
         //mapPosi = (x: w/2, y: -h)
-            isPosi = true
+        isPosi = true
     }
 }
+

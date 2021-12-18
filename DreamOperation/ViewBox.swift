@@ -29,7 +29,6 @@ struct box: View {
 // サイコロを振る画面
 struct dice: View {
     @ObservedObject var game: GameManager = .game
-    @State var walk = false
     var body: some View {
         ZStack{
             // TODO: ここから
@@ -54,18 +53,19 @@ struct dice: View {
                         .position(x: game.images[0].x, y: game.images[0].y)
             // TODO: ここまでのコメントを記載する
                     // ルーレットが回ってる時
-                    if !walk {
+                    if !game.walk {
                         Button("止める"){
-                            walk = true
+                            game.walk = true
                             // ルーレットを止める
                             game.stop()
                         }.font(.largeTitle)
                             .border(Color.black)
                             .position(x: game.images[0].x, y: game.images[0].y + 100)
                     // 止めるボタンを押した時
-                    } else if walk {
+                    } else if game.walk {
                         Button("決定"){
-                            walk = false
+                            game.walk = false
+                            game.appear = true
                             //  半透明から透明にする
                             game.clearView = 0.0
                             // このビューを非表示にする
@@ -73,7 +73,7 @@ struct dice: View {
                             // アニメーションのBoolを元に戻す
                             game.heartMove = true
                             // 出た目分進める
-                            game.step(dice: game.num)
+                            game.step(dices: game.num)
                         }.font(.largeTitle)
                             .border(Color.black)
                             .position(x: game.images[0].x, y: game.images[0].y + 100)

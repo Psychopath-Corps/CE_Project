@@ -27,11 +27,11 @@ struct PlayView: View {
                     Image("pinImage")
                         .resizable()
                         .frame(width: 40, height: 80)
-                        .position(x: game.stepPosi[game.pinposi.a].x, y: game.stepPosi[game.pinposi.a].y-game.w/40)
+                        .position(x: game.stepPosi[game.pinposi[0]].x, y: game.stepPosi[game.pinposi[0]].y-game.w/40)
                     Image("pinImage")
                         .resizable()
                         .frame(width: 40, height: 80)
-                        .position(x: game.stepPosi[game.pinposi.b].x, y: game.stepPosi[game.pinposi.b].y-game.w/40)
+                        .position(x: game.stepPosi[game.pinposi[1]].x, y: game.stepPosi[game.pinposi[1]].y-game.w/40)
                 }
             }
             .offset(x: game.position.width + game.dragOffset.width + drag.width, y: game.position.height + game.dragOffset.height + drag.height)
@@ -53,17 +53,17 @@ struct PlayView: View {
             HStack{
                 VStack{
                     HStack{
-                        Button("←"){if game.pinposi.a>=1{game.pinposi.a-=1}}
+                        Button("←"){if game.pinposi[0]>=1{game.pinposi[0]-=1}}
                         Button("1"){}
-                        Button("→"){game.pinposi.a+=1}
+                        Button("→"){game.pinposi[0]+=1}
                     }
                 }
                 
                 VStack{
                     HStack{
-                        Button("←"){if game.pinposi.b>=1{game.pinposi.b-=1}}
+                        Button("←"){if game.pinposi[1]>=1{game.pinposi[1]-=1}}
                         Button("2"){}
-                        Button("→"){game.pinposi.b+=1}
+                        Button("→"){game.pinposi[1]+=1}
                     }
                 }
             }// HS
@@ -74,11 +74,11 @@ struct PlayView: View {
                 HStack{
                     VStack{
                         Text("マップ")
-                        Text("x:\(game.position.width + game.dragOffset.width) ")
-                        Text("y:\(game.position.height + game.dragOffset.height) ")
+                        Text("x:\(game.position.width + game.dragOffset.width + drag.width) ")
+                        Text("y:\(game.position.height + game.dragOffset.height + drag.height) ")
                     }
-                    Text("ピン1: \(game.pinposi.a) ")
-                    Text("ピン2: \(game.pinposi.b)")
+                    Text("ピン1: \(game.pinposi[0])")
+                    Text("ピン2: \(game.pinposi[1])")
                     Spacer()
                 }
                 Spacer()
@@ -87,14 +87,18 @@ struct PlayView: View {
             VStack {
                 Spacer()
                 HStack {
-                    // サイコロを振る画面に移動
-                    Button("歩む"){
-                        game.diceroll = true
-                        // 背景を半透明にする
-                        game.clearView = 0.5
-                        game.createPosi(health: game.health)
-                        // ルーレットをスタート
-                        game.start()
+                    // サイコロを振ったあともう一度ボタンを押させないため
+                    if !game.appear {
+                        // サイコロを振る画面に移動
+                        Button("歩む"){
+                            game.diceroll = true
+                            // 背景を半透明にする
+                            game.clearView = 0.5
+                            game.createPosi(health: game.health)
+                            // ルーレットをスタート
+                            game.start()
+                        }
+                    } else if game.walk {
                         
                     }
                 }
@@ -102,7 +106,7 @@ struct PlayView: View {
         }.onAppear{
             game.mapPosi = (x: game.w/2, y: -game.h)
             game.createPosi()
-        }        
+        }
     }
     
     

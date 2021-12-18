@@ -10,7 +10,6 @@ import SwiftUI
 struct PlayView: View {
     @ObservedObject var game: GameManager = .game
     // TODO: ここでプレイ画面に移動した時の初期値を調節
-    @GestureState private var dragOffset = CGSize(width: 375, height: -660)
     @GestureState private var drag = CGSize.zero
     @State private var position = CGSize.zero
     @State var isMoving = false
@@ -40,7 +39,7 @@ struct PlayView: View {
                         .position(x: game.stepPosi[game.pinposi.b].x, y: game.stepPosi[game.pinposi.b].y-w/40)
                 }
             }
-            .offset(x: position.width + dragOffset.width + drag.width, y: position.height + dragOffset.height + drag.height)
+            .offset(x: position.width + game.dragOffset.width + drag.width, y: position.height + game.dragOffset.height + drag.height)
             
             // このモディファイアの置く位置によってどのビューに反応して動くか決める
             .gesture(
@@ -51,10 +50,10 @@ struct PlayView: View {
                         
                         
                     })
-                    .onEnded({ (value) in
+                    .onEnded{ value in
                         self.position.height += value.translation.height
                         self.position.width += value.translation.width
-                    })
+                    }
             )
             HStack{
                 VStack{
@@ -80,8 +79,8 @@ struct PlayView: View {
                 HStack{
                     VStack{
                         Text("マップ")
-                        Text("x:\(position.width + dragOffset.width) ")
-                        Text("y:\(position.height + dragOffset.height) ")
+                        Text("x:\(position.width + game.dragOffset.width) ")
+                        Text("y:\(position.height + game.dragOffset.height) ")
                     }
                     Text("ピン1: \(game.pinposi.a) ")
                     Text("ピン2: \(game.pinposi.b)")

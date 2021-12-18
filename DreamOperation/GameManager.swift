@@ -12,6 +12,7 @@ class GameManager: ObservableObject {
     
     static let game = GameManager()
     
+    @GestureState var dragOffset = CGSize(width: 375, height: -660)
     @Published var pins:[(num: Int, name: String, color: String, style: String,
                           place: Int, money: Int, health: Int,
                           salary: Int, pay: Int, follow1: String, follow2: String)] = []
@@ -28,13 +29,16 @@ class GameManager: ObservableObject {
     @Published var diceroll = false
     
     let health = 9
-    @Published var timerHandler : Timer?
+    @Published var timer: Timer!
+    @Published var timerCount = 0.0
     @Published var images:[(x:CGFloat, y:CGFloat)] = []
     @Published var isPosi = false
     @Published var heartMove = true
     @Published var num = 1
     @Published var slot = false
     @Published var clearView = 0.0
+    @Published var isMoving = false
+    @Published var eventGamen = false
     /// サイコロロジック
     func saicoro(max: Int) -> Int {
         let saicoro = Int.random(in: 1...max)
@@ -77,11 +81,11 @@ class GameManager: ObservableObject {
         }
     }
     func stop() {
-        timerHandler?.invalidate()
+        timer?.invalidate()
         num = Int.random(in: 1...9)
     }
     func start() {
-        timerHandler = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true){ _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true){ _ in
             if !self.heartMove {
                 self.num = Int.random(in: 1...9)
             } else {
@@ -90,4 +94,23 @@ class GameManager: ObservableObject {
         }
     }
     
+    func pinXY(dragX: CGSize, dragY: CGSize) {
+        
+    }
+    
+    func step(dice: Int) {
+        self.timer?.invalidate()
+        self.timerCount = Double(dice)
+        self.timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true){ _ in
+            self.timerCount -= 1
+            print(self.timerCount)
+            self.pinposi.a += 1
+            if self.timerCount == 0 {
+                self.timer?.invalidate()
+                self.timer = nil
+                self.eventGamen = true
+                self.clearView = 0.5
+            }
+        }
+    }
 }

@@ -60,10 +60,31 @@ struct dice: View {
                             walk = false
                             game.clearView = 0.0
                             game.diceroll = false
+                            game.heartMove = true
+                            game.step(dice: game.num)
                         }.font(.largeTitle)
                             .border(Color.black)
                             .position(x: game.images[0].x, y: game.images[0].y + 100)
                     }
+                }
+            }
+        }
+    }
+}
+
+struct event: View {
+    @ObservedObject var game: GameManager = .game
+    var body: some View {
+        ZStack {
+            VStack{
+                Text("お金が〇〇円になりました")
+                Button("OK"){
+                    game.isMoving.toggle()
+                    game.eventGamen.toggle()
+                    game.clearView = 0.0
+                }
+                .fullScreenCover(isPresented: $game.isMoving){
+                    TurnView(isMoving: $game.isMoving)
                 }
             }
         }

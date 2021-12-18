@@ -15,6 +15,7 @@ struct TurnView: View {
         Text("交代してください")
         Button("OK"){
             game.gamen = "play"
+            
             isMoving.toggle()
         }
     }

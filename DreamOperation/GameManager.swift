@@ -21,6 +21,7 @@ class GameManager: ObservableObject {
     @Published var pin1 = (x: CGFloat(0), y: CGFloat(0))
     @Published var pin2 = (x: CGFloat(0), y: CGFloat(0))
     @Published var pinposi = (a: 0,b: 0,c: 0,d: 0)
+    @Published var playing = 1
     
     /// サイコロロジック
     func saicoro(max: Int) -> Int {

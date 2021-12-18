@@ -46,7 +46,7 @@ struct PlayView: View {
             VStack{
                 HStack{
                     Button("←"){if data.pinposi.a>=1{data.pinposi.a-=1}}
-                    Button("1"){}
+                    Button("1"){spot(num: 1)}
                     Button("→"){data.pinposi.a+=1}
                 }
             }
@@ -69,16 +69,8 @@ struct PlayView: View {
                         Text("x:\(data.mapPosi.x) ")
                         Text("y:\(data.mapPosi.y) ")
                     }
-                    VStack{
-                        Text("ピン１")
-                        Text("x:\(data.pin1.x) ")
-                        Text("y:\(data.pin1.y) ")
-                    }
-                    VStack{
-                        Text("ピン２")
-                        Text("x:\(data.pin2.x) ")
-                        Text("y:\(data.pin2.y) ")
-                    }
+                    Text("ピン1: \(data.pinposi.a) ")
+                    Text("ピン2: \(data.pinposi.b)")
                     Spacer()
                 }
                 Spacer()
@@ -88,6 +80,11 @@ struct PlayView: View {
             createPosi()
         }
     }
+    
+    func spot(num: Int) {
+        
+    }
+    
     func createPosi() {
         // 0~20
         for i in 0...20{

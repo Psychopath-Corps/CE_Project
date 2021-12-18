@@ -16,7 +16,10 @@ struct TurnView: View {
         Button("OK"){
             game.gamen = "play"
             // フルスクリーンカバーを解除する
-            isMoving.toggle()
+            isMoving = false
+            game.eventGamen = false
+            // 半透明から透明に
+            game.clearView = 0.0
         }
     }
 }

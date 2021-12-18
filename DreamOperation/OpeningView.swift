@@ -9,17 +9,17 @@ import SwiftUI
 
 struct OpeningView: View {
     @ObservedObject var game: GameManager = .game
-    
+    @State var isMovingSetting = false
     var body: some View {
         ZStack{
             VStack{
                 Text("オープニング")
                 Button("PLAY"){
-                    game.isMovingSetting.toggle()
+                    isMovingSetting.toggle()
                 }
                 // 設定画面に画面遷移
-                .fullScreenCover(isPresented: $game.isMovingSetting){
-                    SettingView(isMovingSetting: $game.isMovingSetting)
+                .fullScreenCover(isPresented: $isMovingSetting){
+                    SettingView(isMovingSetting: $isMovingSetting)
                 }
             }
         }

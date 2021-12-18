@@ -87,21 +87,20 @@ struct dice: View {
 // イベント画面
 struct event: View {
     @ObservedObject var game: GameManager = .game
+    @State var isMovingTurn = false
     var body: some View {
         ZStack {
             VStack{
                 Text("お金が〇〇円になりました")
-                Button("OK"){
-                    game.isMovingTurn.toggle()
-                    game.eventGamen.toggle()
-                    // 半透明から透明に
-                    game.clearView = 0.0
+                Button("OK") {
+                    isMovingTurn = true
                 }
                 // ターン画面に画面遷移
-                .fullScreenCover(isPresented: $game.isMovingTurn){
-                    TurnView(isMoving: $game.isMovingTurn)
+                .fullScreenCover(isPresented: $isMovingTurn){
+                    TurnView(isMoving: $isMovingTurn)
                 }
             }
+            .frame(width: 300, height: 100)
         }
     }
 }

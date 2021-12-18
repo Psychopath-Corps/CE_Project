@@ -19,7 +19,7 @@ struct SettingView: View {
                 VStack{
                     Text("設定")
                     Button("PLAY"){
-                        game.isMovingTurn.toggle()
+                        game.isMovingTurn = true
                     }
                     // ターン画面に画面遷移
                     .fullScreenCover(isPresented: $game.isMovingTurn){

@@ -24,6 +24,58 @@ struct box: View {
     }
 }
 
+struct empty: View {
+    var body: some View {
+        VStack{
+            
+        }
+    }
+}
+
+struct changeTelop: View {
+    @ObservedObject var data = GameManager()
+    let player: Int
+    var body: some View {
+        VStack{
+            Text("\(data.pins[player].name)")
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+            Text("が歩みを進める番です。")
+                .font(.title)
+            Text("交代してください")
+            Spacer().frame(height: 20)
+            Button(action: {data.mode = "select"}) {
+                Text("OK")
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
+                    .foregroundColor(Color.white)
+                    .padding()
+                    .background(Color.black)
+                    .border(Color.gray, width: 5)
+            }
+        }
+    }
+}
+
+struct select: View {
+    @ObservedObject var data = GameManager()
+    var body: some View {
+        ZStack{
+            Image(systemName: "heart")
+                .resizable()
+                .frame(width: 100, height: 100)
+                .position(x: w*0.6, y: h/2)
+            
+            Text("進める")
+                .font(.largeTitle)
+                .position(x: w*0.6, y: h/2)
+                .onTapGesture {
+                    data.mode = "dice"
+                }
+        }
+    }
+}
+
 struct dice: View {
     let health = 9
     @State var timerHandler : Timer?
@@ -111,6 +163,22 @@ struct dice: View {
             } else {
                 animation()
             }
+        }
+    }
+}
+
+struct moving: View {
+    var body: some View {
+        ZStack{
+            
+        }
+    }
+}
+
+struct eventTelop: View {
+    var body: some View {
+        VStack{
+            
         }
     }
 }

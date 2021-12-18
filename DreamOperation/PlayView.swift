@@ -86,6 +86,36 @@ struct PlayView: View {
                 }
                 Spacer()
             }
+            
+            if data.mode == "change" {
+                changeTelop(player: data.player)
+            }
+            if data.mode == "select" {
+                select()
+            }
+            if data.mode == "dice" {
+                dice()
+            }
+            if data.mode == "moving" {
+                moving()
+            }
+            if data.mode == "event" {
+                eventTelop()
+            }
+            
+            VStack{
+                HStack{
+                    Spacer()
+                    VStack{
+                        Button("C"){data.mode="change"}
+                        Button("S"){data.mode="select"}
+                        Button("D"){data.mode="dice"}
+                        Button("M"){data.mode="moving"}
+                        Button("E"){data.mode="event"}
+                    }
+                }
+            }
+            
         }.onAppear{
             data.mapPosi = (x: w/2, y: -h)
             createPosi()

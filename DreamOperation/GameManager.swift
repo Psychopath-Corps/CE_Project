@@ -16,7 +16,7 @@ class GameManager: ObservableObject {
     @Published var stepPosi: [(x:CGFloat, y: CGFloat)] = []
     @Published var isPosi = false
     
-    @Published var mapPosi = (x: CGFloat(0), y: CGFloat(0))
+    @Published var mapPosi = (x: CGFloat(55), y: CGFloat(-655))
     // stepの座標に合わせる
     @Published var pin1 = (x: CGFloat(0), y: CGFloat(0))
     @Published var pin2 = (x: CGFloat(0), y: CGFloat(0))

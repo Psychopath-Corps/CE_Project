@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct OpeningView: View {
-    @ObservedObject var data: Observer = .data
+    @State var isMoving = false
     var body: some View {
         ZStack{
             VStack{
                 Text("オープニング")
                 Button("PLAY"){
-                    data.display = "Setting"
+                    isMoving.toggle()
+                }
+                .fullScreenCover(isPresented: $isMoving){
+                    SettingView(isMovingSetting: $isMoving)
                 }
             }
         }

@@ -8,21 +8,29 @@
 import SwiftUI
 
 struct SettingView: View {
-    @ObservedObject var data: Observer = .data
+    @ObservedObject var game: GameManager = .game
+    @Binding var isMovingSetting: Bool
+    @State var isMoving = false
     var body: some View {
         ZStack{
-            VStack{
-                Text("設定")
-                Button("PLAY"){
-                    data.display = "Play"
+            if game.gamen == "setting" {
+                VStack{
+                    Text("設定")
+                    Button("PLAY"){
+                        isMoving.toggle()
+                    }
+                    .fullScreenCover(isPresented: $isMoving){
+                        TurnView(isMoving: $isMoving)
+                    }
+                }
+            } else if game.gamen == "play" {
+                PlayView()
+                UIView()
+                if game.diceroll {
+                    dice()
+                        .background(Color.white.opacity(game.clearView))
                 }
             }
         }
-    }
-}
-
-struct SettingView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingView()
     }
 }

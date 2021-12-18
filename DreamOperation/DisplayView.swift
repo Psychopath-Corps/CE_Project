@@ -7,33 +7,10 @@
 
 import SwiftUI
 
-class Observer: ObservableObject {
-    private init(){ }
-    
-    static let data = Observer()
-    
-    @Published var display = "Opening"
-    
-}
-
 struct DisplayView: View {
-    @ObservedObject var data: Observer = .data
+    @ObservedObject var game: GameManager = .game
     var body: some View {
-        ZStack{
-            if data.display == "Opening" {
-                OpeningView()
-            }
-            if data.display == "Setting" {
-                SettingView()
-            }
-            if data.display == "Play" {
-                PlayView()
-                UIView()
-            }
-            if data.display == "Debug" {
-                PlayView()
-            }
-        }
+        OpeningView()
     }
 }
 

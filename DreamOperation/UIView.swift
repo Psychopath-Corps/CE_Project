@@ -11,6 +11,7 @@ struct UIView: View {
     var body: some View {
         VStack{
             HStack{
+                Text("のターン")
                 Spacer()
                 Image("pinImage")
                     .resizable()

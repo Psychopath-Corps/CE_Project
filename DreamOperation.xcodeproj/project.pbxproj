@@ -18,6 +18,7 @@
 		7F09C0ED2768CE940066438D /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F09C0EC2768CE940066438D /* UIView.swift */; };
 		7F09C0EF2768E2370066438D /* ViewBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F09C0EE2768E2370066438D /* ViewBox.swift */; };
 		7FEF6D72276C4BDE008FD022 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEF6D71276C4BDE008FD022 /* GameManager.swift */; };
+		7FEF6D74276DCB8E008FD022 /* TurnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FEF6D73276DCB8E008FD022 /* TurnView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		7F09C0EC2768CE940066438D /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		7F09C0EE2768E2370066438D /* ViewBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBox.swift; sourceTree = "<group>"; };
 		7FEF6D71276C4BDE008FD022 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		7FEF6D73276DCB8E008FD022 /* TurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,8 +72,9 @@
 				7F09C0EC2768CE940066438D /* UIView.swift */,
 				7F09C0E42768CDED0066438D /* OpeningView.swift */,
 				7F09C0E62768CE040066438D /* SettingView.swift */,
-				7F09C0E82768CE1C0066438D /* PlayView.swift */,
 				7F09C0EE2768E2370066438D /* ViewBox.swift */,
+				7F09C0E82768CE1C0066438D /* PlayView.swift */,
+				7FEF6D73276DCB8E008FD022 /* TurnView.swift */,
 				7F09C0EA2768CE450066438D /* LogicBox.swift */,
 				7FEF6D71276C4BDE008FD022 /* GameManager.swift */,
 				7F09C0D82768CD510066438D /* Assets.xcassets */,
@@ -167,6 +170,7 @@
 				7FEF6D72276C4BDE008FD022 /* GameManager.swift in Sources */,
 				7F09C0E92768CE1C0066438D /* PlayView.swift in Sources */,
 				7F09C0E52768CDED0066438D /* OpeningView.swift in Sources */,
+				7FEF6D74276DCB8E008FD022 /* TurnView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

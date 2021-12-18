@@ -13,6 +13,7 @@ struct DreamOperationApp: App {
         WindowGroup {
             DisplayView()
             //mapView()
+//            dice()
         }
     }
 }

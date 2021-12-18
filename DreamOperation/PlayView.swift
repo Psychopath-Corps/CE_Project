@@ -20,6 +20,10 @@ struct PlayView: View {
     var body: some View {
         ZStack{
             Group{
+                Image("green")
+                    .resizable()
+                    .frame(width: w*3, height: w*1.5)
+                    .position(x: w, y: w/2)
                 if data.isPosi{
                     ForEach(0..<66){ num in
                         box(posi: data.stepPosi[num], n: num)

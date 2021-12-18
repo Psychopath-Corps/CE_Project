@@ -15,7 +15,7 @@ struct TurnView: View {
         Text("交代してください")
         Button("OK"){
             game.gamen = "play"
-            
+            // フルスクリーンカバーを解除する
             isMoving.toggle()
         }
     }

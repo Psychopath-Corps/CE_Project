@@ -11,39 +11,61 @@ class GameManager: ObservableObject {
     private init(){ }
     
     static let game = GameManager()
+    /// 設定画面の遷移
+    @State var isMovingSetting = false
     
+    /// 今あるポジションを保存
+    @Published var position = CGSize.zero
+    /// ターン画面に遷移
+    @Published var isMovingTurn = false
+    
+    /// 横の画面サイズを取得
+    let w = UIScreen.main.bounds.width
+    /// 縦の画面サイズを取得
+    let h = UIScreen.main.bounds.height
+    
+    /// 初期位置を決める
     @GestureState var dragOffset = CGSize(width: 375, height: -660)
+    /// プレイヤーのステータス
     @Published var pins:[(num: Int, name: String, color: String, style: String,
                           place: Int, money: Int, health: Int,
                           salary: Int, pay: Int, follow1: String, follow2: String)] = []
     
+    
     @Published var stepPosi: [(x:CGFloat, y: CGFloat)] = []
     
     @Published var mapPosi = (x: CGFloat(55), y: CGFloat(-655))
-    // stepの座標に合わせる
+    /// stepの座標に合わせる
     @Published var pin1 = (x: CGFloat(0), y: CGFloat(0))
     @Published var pin2 = (x: CGFloat(0), y: CGFloat(0))
     @Published var pinposi = (a: 0,b: 0,c: 0,d: 0)
     @Published var playing = 1
+    
+    /// 画面を切り替えるための
     @Published var gamen = "setting"
+    /// サイコロを振る画面の表示の有無
     @Published var diceroll = false
     
+    /// プレイヤーのライフ
     let health = 9
+    
+    /// タイマー
     @Published var timer: Timer!
     @Published var timerCount = 0.0
+    
     @Published var images:[(x:CGFloat, y:CGFloat)] = []
     @Published var isPosi = false
+    
+    /// サイコロのアニメーションの起動の有無
     @Published var heartMove = true
     @Published var num = 1
     @Published var slot = false
+    
+    /// 背景を半透明する具合
     @Published var clearView = 0.0
-    @Published var isMoving = false
+    
+    /// イベント画面の表示の有無
     @Published var eventGamen = false
-    /// サイコロロジック
-    func saicoro(max: Int) -> Int {
-        let saicoro = Int.random(in: 1...max)
-        return saicoro
-    }
     
     // ハートの座標の生成
     func createPosi(health: Int) {
@@ -66,6 +88,8 @@ class GameManager: ObservableObject {
         }
         isPosi = true
     }
+    
+    /// サイコロのアニメーション
     func animation() {
         for i in 1...health {
             if images[i].y <= h/2 {
@@ -80,10 +104,14 @@ class GameManager: ObservableObject {
             }
         }
     }
+    
+    /// 決定ボタンを押した時の処理
     func stop() {
         timer?.invalidate()
         num = Int.random(in: 1...9)
     }
+    
+    /// ルーレットを開始する
     func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true){ _ in
             if !self.heartMove {
@@ -94,10 +122,12 @@ class GameManager: ObservableObject {
         }
     }
     
+    /// 画像の座標を取得し、ターン開始の時にその座標へ移動させる処理
     func pinXY(dragX: CGSize, dragY: CGSize) {
         
     }
     
+    /// マスを進める処理
     func step(dice: Int) {
         self.timer?.invalidate()
         self.timerCount = Double(dice)
@@ -112,5 +142,40 @@ class GameManager: ObservableObject {
                 self.clearView = 0.5
             }
         }
+    }
+    
+    func spot(num: Int) {
+
+    }
+    
+    /// マスを生成
+    func createPosi() {
+        // 0~20
+        for i in 0...20{
+            let new = (x: w/10 * CGFloat(i), y: w)
+            stepPosi.append(new)
+        }
+        // 21~30
+        for i in 1...10{
+            let new = (x: w * 2, y: w - w/10 * CGFloat(i))
+            stepPosi.append(new)
+        }
+        //31~50
+        for i in 1...20{
+            let new = (x: w*2 - w/10 * CGFloat(i), y: CGFloat(0))
+            stepPosi.append(new)
+        }
+        // 51~55
+        for i in 1...5{
+            let new = (x: CGFloat(0), y: w/10 * CGFloat(i))
+            stepPosi.append(new)
+        }
+        // 56~65
+        for i in 1...10{
+            let new = (x: w/10 * CGFloat(i), y: w/2)
+            stepPosi.append(new)
+        }
+        //mapPosi = (x: w/2, y: -h)
+            isPosi = true
     }
 }

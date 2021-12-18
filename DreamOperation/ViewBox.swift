@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-let w = UIScreen.main.bounds.width
-let h = UIScreen.main.bounds.height
 
+// マップに番号を振る
 struct box: View {
-    let posi: (x:CGFloat, y: CGFloat)
+    @ObservedObject var game: GameManager = .game
     let n: Int
+    let w = UIScreen.main.bounds.width
+    let h = UIScreen.main.bounds.height
+    let posi: (x:CGFloat, y: CGFloat)
     var body: some View {
         ZStack{
             Text("\(n)")
@@ -24,11 +26,13 @@ struct box: View {
     }
 }
 
+// サイコロを振る画面
 struct dice: View {
     @ObservedObject var game: GameManager = .game
     @State var walk = false
     var body: some View {
         ZStack{
+            // TODO: ここから
             if game.isPosi {
                 if game.heartMove {
                     ForEach(1..<game.health+1){ i in
@@ -48,19 +52,27 @@ struct dice: View {
                     Text("\(game.num)")
                         .font(.largeTitle)
                         .position(x: game.images[0].x, y: game.images[0].y)
+            // TODO: ここまでのコメントを記載する
+                    // ルーレットが回ってる時
                     if !walk {
                         Button("止める"){
                             walk = true
+                            // ルーレットを止める
                             game.stop()
                         }.font(.largeTitle)
                             .border(Color.black)
                             .position(x: game.images[0].x, y: game.images[0].y + 100)
+                    // 止めるボタンを押した時
                     } else if walk {
                         Button("決定"){
                             walk = false
+                            //  半透明から透明にする
                             game.clearView = 0.0
+                            // このビューを非表示にする
                             game.diceroll = false
+                            // アニメーションのBoolを元に戻す
                             game.heartMove = true
+                            // 出た目分進める
                             game.step(dice: game.num)
                         }.font(.largeTitle)
                             .border(Color.black)
@@ -72,6 +84,7 @@ struct dice: View {
     }
 }
 
+// イベント画面
 struct event: View {
     @ObservedObject var game: GameManager = .game
     var body: some View {
@@ -79,12 +92,14 @@ struct event: View {
             VStack{
                 Text("お金が〇〇円になりました")
                 Button("OK"){
-                    game.isMoving.toggle()
+                    game.isMovingTurn.toggle()
                     game.eventGamen.toggle()
+                    // 半透明から透明に
                     game.clearView = 0.0
                 }
-                .fullScreenCover(isPresented: $game.isMoving){
-                    TurnView(isMoving: $game.isMoving)
+                // ターン画面に画面遷移
+                .fullScreenCover(isPresented: $game.isMovingTurn){
+                    TurnView(isMoving: $game.isMovingTurn)
                 }
             }
         }

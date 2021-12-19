@@ -27,6 +27,7 @@ struct SettingView: View {
                         } else {
                             game.dragOffset = CGSize(width: game.w/2, height: -game.w * 0.75)
                         }
+                        game.pinClear[1] = 0.5
                     }
                     // ターン画面に画面遷移
                     .fullScreenCover(isPresented: $game.isMovingTurn){

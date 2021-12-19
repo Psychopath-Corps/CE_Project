@@ -65,6 +65,7 @@ class GameManager: ObservableObject {
     
     /// 背景を半透明する具合
     @Published var clearView = 0.0
+    @Published var pinClear = [1.0, 1.0, 1.0, 1.0]
     
     /// イベント画面の表示の有無
     @Published var eventGamen = false

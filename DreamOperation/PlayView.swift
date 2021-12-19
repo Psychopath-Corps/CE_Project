@@ -32,10 +32,12 @@ struct PlayView: View {
                         .resizable()
                         .frame(width: 40, height: 80)
                         .position(x: game.stepPosi[game.pinposi[0]].x, y: game.stepPosi[game.pinposi[0]].y-w/40)
+                        .opacity(game.pinClear[0])
                     Image("pinImage")
                         .resizable()
                         .frame(width: 40, height: 80)
                         .position(x: game.stepPosi[game.pinposi[1]].x, y: game.stepPosi[game.pinposi[1]].y-w/40)
+                        .opacity(game.pinClear[1])
                 }
             }
             .offset(x: game.position.width + game.dragOffset.width + drag.width, y: game.position.height + game.dragOffset.height + drag.height)

@@ -22,8 +22,12 @@ struct TurnView: View {
                 // 次のプレイヤーの位置まで移動す流処理
                 if game.pinNumber == 0 {
                     game.pinNumber = 1
+                    game.pinClear[0] = 0.5
+                    game.pinClear[1] = 1.0
                 } else if game.pinNumber == 1 {
                     game.pinNumber = 0
+                    game.pinClear[1] = 0.5
+                    game.pinClear[0] = 1.0
                 }
                 game.pinXY(a: game.pinNumber)
             }

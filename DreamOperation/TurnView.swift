@@ -34,7 +34,6 @@ struct TurnView: View {
             // 半透明から透明に
             game.clearView = 0.0
             game.appear = false
-            game.two = true
         }
     }
 }

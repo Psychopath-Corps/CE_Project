@@ -11,14 +11,18 @@ struct PlayView: View {
     @ObservedObject var game: GameManager = .game
     // マップを移動
     @GestureState var drag = CGSize.zero
+    /// 横の画面サイズを取得
+    let w = UIScreen.main.bounds.width
+    /// 縦の画面サイズを取得
+    let h = UIScreen.main.bounds.height
     
     var body: some View {
         ZStack{
             Group{
                 Image("green")
                     .resizable()
-                    .frame(width: game.w*3, height: game.w*1.5)
-                    .position(x: game.w, y: game.w/2)
+                    .frame(width: w*3, height: w*1.5)
+                    .position(x: w, y: w/2)
                 // マス目を生成
                 if game.isPosi{
                     ForEach(0..<66){ num in
@@ -27,11 +31,11 @@ struct PlayView: View {
                     Image("pinImage")
                         .resizable()
                         .frame(width: 40, height: 80)
-                        .position(x: game.stepPosi[game.pinposi[0]].x, y: game.stepPosi[game.pinposi[0]].y-game.w/40)
+                        .position(x: game.stepPosi[game.pinposi[0]].x, y: game.stepPosi[game.pinposi[0]].y-w/40)
                     Image("pinImage")
                         .resizable()
                         .frame(width: 40, height: 80)
-                        .position(x: game.stepPosi[game.pinposi[1]].x, y: game.stepPosi[game.pinposi[1]].y-game.w/40)
+                        .position(x: game.stepPosi[game.pinposi[1]].x, y: game.stepPosi[game.pinposi[1]].y-w/40)
                 }
             }
             .offset(x: game.position.width + game.dragOffset.width + drag.width, y: game.position.height + game.dragOffset.height + drag.height)
@@ -104,7 +108,7 @@ struct PlayView: View {
                 }
             }
         }.onAppear{
-            game.mapPosi = (x: game.w/2, y: -game.h)
+            game.mapPosi = (x: w/2, y: -h)
             game.createPosi()
         }
     }

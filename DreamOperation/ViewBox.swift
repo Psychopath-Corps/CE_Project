@@ -17,11 +17,44 @@ struct box: View {
     let posi: (x:CGFloat, y: CGFloat)
     var body: some View {
         ZStack{
-            Text("\(n)")
-                .frame(width: w/10, height: w/10)
-                .background(Color.gray)
-                .border(Color.green)
-                .position(x: posi.x, y: posi.y)
+            switch n {
+            case 0, 55:
+                Text("\(n)")
+                    .frame(width: w/5 , height: w/5)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x - w/20, y: posi.y + w/20)
+            case 20:
+                Text("\(n)")
+                    .frame(width: w/5, height: w/5)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x + w/20, y: posi.y + w/20)
+            case 30:
+                Text("\(n)")
+                    .frame(width: w/5, height: w/5)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x + w/20, y: posi.y - w/20)
+            case 50:
+                Text("\(n)")
+                    .frame(width: w/5, height: w/5)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x - w/20, y: posi.y - w/20)
+            case 65:
+                Text("\(n)")
+                    .frame(width: w/5, height: w/5)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x - w/20, y: posi.y)
+            default:
+                Text("\(n)")
+                    .frame(width: w/10, height: w/10)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x, y: posi.y)
+            }
         }
     }
 }
@@ -51,7 +84,7 @@ struct dice: View {
                     Text("\(game.num)")
                         .font(.largeTitle)
                         .position(x: game.images[0].x, y: game.images[0].y)
-            // TODO: ここまでのコメントを記載する
+                    // TODO: ここまでのコメントを記載する
                     // ルーレットが回ってる時
                     if !game.walk {
                         Button("止める"){
@@ -61,7 +94,7 @@ struct dice: View {
                         }.font(.largeTitle)
                             .border(Color.black)
                             .position(x: game.images[0].x, y: game.images[0].y + 100)
-                    // 止めるボタンを押した時
+                        // 止めるボタンを押した時
                     } else if game.walk {
                         Button("決定"){
                             game.walk = false
@@ -94,6 +127,7 @@ struct event: View {
                 Text("お金が〇〇円になりました")
                 Button("OK") {
                     isMovingTurn = true
+                    game.two = true
                 }
                 // ターン画面に画面遷移
                 .fullScreenCover(isPresented: $isMovingTurn){

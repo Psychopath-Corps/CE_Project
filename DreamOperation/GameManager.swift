@@ -126,41 +126,77 @@ class GameManager: ObservableObject {
     
     /// 画像の座標を取得し、ターン開始の時にその座標へ移動させる処理
     func pinXY(a: Int) {
-        
-        // 0~20
-        if pinposi[a] <= 20{
-            dragOffset.width = 379.8 - CGFloat(pinposi[a]) * 84.4
-            position.width = 0
-            dragOffset.height = -660
-            position.height = 0
+        //safeAreaの値を取得
+        let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets.left
+        if(safeAreaInsets! >= 44.0){
+            // 0~20
+            if pinposi[a] <= 20{
+                dragOffset.width = w/2 - CGFloat(pinposi[a]) * w/10 - 44
+                position.width = 0
+                dragOffset.height = -w * 0.75 - 27
+                position.height = 0
+            }
+            // 21~30
+            else if pinposi[a] <= 30{
+                dragOffset.width = w/2 - 2 * w - 44
+                position.width = 0
+                dragOffset.height = -w * 0.75 - 27 + CGFloat(pinposi[a] - 20) * w/10
+                position.height = 0
+            }
+            //31~50
+            else if pinposi[a] <= 50{
+                dragOffset.width = w/2 - 2 * w - 44 + CGFloat(pinposi[a] - 30) * w/10
+                position.width = 0
+                dragOffset.height = -w * 0.75 - 27 + w/10
+                position.height = 0
+            }
+            else if pinposi[a] <= 55{
+                dragOffset.width = w/2 - 44
+                position.width = 0
+                dragOffset.height = -w * 0.75 - 27 + w/10 - CGFloat(pinposi[a] - 50) * w/10
+                position.height = 0
+            }
+            else if pinposi[a] <= 65{
+                dragOffset.width =  w/2 - 44 - CGFloat(pinposi[a] - 55) * w/10
+                position.width = 0
+                dragOffset.height = -w * 0.75 - 27 + w/10 - w/2
+                position.height = 0
+            }
+        } else {
+            // 0~20
+            if pinposi[a] <= 20{
+                dragOffset.width = w/2 - CGFloat(pinposi[a]) * w/10
+                position.width = 0
+                dragOffset.height = -w * 0.75
+                position.height = 0
+            }
+            // 21~30
+            else if pinposi[a] <= 30{
+                dragOffset.width = w/2 - 2 * w
+                position.width = 0
+                dragOffset.height = -w * 0.75 + CGFloat(pinposi[a] - 20) * w/10
+                position.height = 0
+            }
+            //31~50
+            else if pinposi[a] <= 50{
+                dragOffset.width = w/2 - 2 * w + CGFloat(pinposi[a] - 30) * w/10
+                position.width = 0
+                dragOffset.height = -w * 0.75 + w/10
+                position.height = 0
+            }
+            else if pinposi[a] <= 55{
+                dragOffset.width = w/2
+                position.width = 0
+                dragOffset.height = -w * 0.75 + w/10 - CGFloat(pinposi[a] - 50) * w/10
+                position.height = 0
+            }
+            else if pinposi[a] <= 65{
+                dragOffset.width =  w/2 - CGFloat(pinposi[a] - 55) * w/10
+                position.width = 0
+                dragOffset.height = -w * 0.75 + w/10 - w/2
+                position.height = 0
+            }
         }
-        // 21~30
-        else if pinposi[a] <= 30{
-            dragOffset.width = -1308.2
-            position.width = 0
-            dragOffset.height = -660 + CGFloat(pinposi[a] - 20) * 84.4
-            position.height = 0
-        }
-        //31~50
-        else if pinposi[a] <= 50{
-            dragOffset.width = -1308.2 + CGFloat(pinposi[a] - 30) * 84.4
-            position.width = 0
-            dragOffset.height = 184
-            position.height = 0
-        }
-        else if pinposi[a] <= 55{
-            dragOffset.width =  379.8
-            position.width = 0
-            dragOffset.height = 184 - CGFloat(pinposi[a] - 50) * 84.4
-            position.height = 0
-        }
-        else if pinposi[a] <= 65{
-            dragOffset.width =  379.8 - CGFloat(pinposi[a] - 55) * 84.4
-            position.width = 0
-            dragOffset.height = -238
-            position.height = 0
-        }
-        
     }
     /// マスを進める処理
     func step(dices: Int) {

@@ -20,6 +20,13 @@ struct SettingView: View {
                     Text("設定")
                     Button("PLAY"){
                         game.isMovingTurn = true
+                        //safeAreaの値を取得
+                        let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets.left
+                        if(safeAreaInsets! >= 44.0){
+                            game.dragOffset = CGSize(width: game.w/2 - 44, height: -game.w * 0.75 - 27)
+                        } else {
+                            game.dragOffset = CGSize(width: game.w/2, height: -game.w * 0.75)
+                        }
                     }
                     // ターン画面に画面遷移
                     .fullScreenCover(isPresented: $game.isMovingTurn){

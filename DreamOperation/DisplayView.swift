@@ -10,7 +10,24 @@ import SwiftUI
 struct DisplayView: View {
     @ObservedObject var game: GameManager = .game
     var body: some View {
-        OpeningView()
+        if game.display == "Opening" {
+            OpeningView()
+        } else if game.display == "Setting" {
+            SettingView()
+        } else if game.display == "Play" {
+            PlayView()
+        } else if game.display == "" {
+            
+        } else if game.display == "" {
+            
+        } else if game.display == "" {
+            
+        } else if game.display == "" {
+            
+        } else {
+            
+        }
+        
     }
 }
 

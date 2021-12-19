@@ -15,11 +15,7 @@ struct OpeningView: View {
             VStack{
                 Text("オープニング")
                 Button("PLAY"){
-                    isMovingSetting.toggle()
-                }
-                // 設定画面に画面遷移
-                .fullScreenCover(isPresented: $isMovingSetting){
-                    SettingView(isMovingSetting: $isMovingSetting)
+                    game.display = "Setting"
                 }
             }
         }

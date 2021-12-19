@@ -19,7 +19,8 @@ struct SettingView: View {
                 VStack{
                     Text("設定")
                     Button("PLAY"){
-                        game.isMovingTurn = true
+                        game.display = "Play"
+                        //game.isMovingTurn = true
                         //safeAreaの値を取得
                         let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets.left
                         if(safeAreaInsets! >= 44.0){
@@ -29,10 +30,10 @@ struct SettingView: View {
                         }
                         game.pinClear[1] = 0.5
                     }
-                    // ターン画面に画面遷移
-                    .fullScreenCover(isPresented: $game.isMovingTurn){
-                        TurnView(isMoving: $game.isMovingTurn)
-                    }
+//                    // ターン画面に画面遷移
+//                    .fullScreenCover(isPresented: $game.isMovingTurn){
+//                        TurnView(isMoving: $game.isMovingTurn)
+//                    }
                 }
             // プレイ画面
             } else if game.gamen == "play" {
@@ -152,9 +153,211 @@ struct playerNameSetView: View {
 }
 
 struct pinInfoSetView: View {
+    @State var dream = ""
+    @State var needMoney = 5000000
     var body: some View {
         ZStack{
-            
+            VStack{
+                
+                HStack{
+                    
+                    VStack{
+                        Image("pinImage")
+                            .resizable()
+                            .frame(width: 100, height: 200)
+                        Text("佐野　炭治郎")
+                    }
+                    
+                    VStack{
+                        Text("色")
+                        HStack{
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                        }
+                        HStack{
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                        }
+                        HStack{
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("青")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                        }
+                        Text("服")
+                        HStack{
+                            Button(action: {}){
+                                Text("服1")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("服2")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("服3")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                        }
+                        HStack{
+                            Button(action: {}){
+                                Text("服4")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("服5")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("服6")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                        }
+                        HStack{
+                            Button(action: {}){
+                                Text("服7")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("服8")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                            Button(action: {}){
+                                Text("服9")
+                                    .frame(width: 30, height: 30)
+                                    .background(Color.blue)
+                                    .border(Color.black)
+                            }
+                        }
+                    }
+                    
+                    VStack{
+                        Text("夢は？")
+                        TextField("佐野　炭治郎　の夢", text: $dream)
+                        Text("夢の目標金額")
+                        
+                        Button(action: {
+                            needMoney = 10000000
+                        }){
+                            Text("¥10000000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        Button(action: {
+                            needMoney = 7500000
+                        }){
+                            Text("¥7500000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        Button(action: {
+                            needMoney = 5000000
+                        }){
+                            Text("¥5000000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        Button(action: {
+                            needMoney = 2500000
+                        }){
+                            Text("¥2500000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        Button(action: {
+                            needMoney = 1000000
+                        }){
+                            Text("¥1000000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                    }
+                }
+                
+                Button(action: {
+                    
+                }){
+                    Text("決定")
+                        .font(.largeTitle)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                        .padding()
+                        .background(Color.black)
+                        .border(Color.gray, width: 5)
+                }
+            }
         }
     }
 }

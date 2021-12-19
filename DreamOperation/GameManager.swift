@@ -10,6 +10,8 @@ import SwiftUI
 class GameManager: ObservableObject {
     private init(){ }
     
+    @Published var display = "Opening"
+    
     static let game = GameManager()
     /// 設定画面の遷移
     @State var isMovingSetting = false

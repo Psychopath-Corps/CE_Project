@@ -41,7 +41,6 @@ struct PlayView: View {
                 }
             }
             .offset(x: game.position.width + game.dragOffset.width + drag.width, y: game.position.height + game.dragOffset.height + drag.height)
-            
             // マップを移動できるようにするロジック
             .gesture(
                 DragGesture()

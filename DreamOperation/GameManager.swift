@@ -222,7 +222,7 @@ class GameManager: ObservableObject {
     }
     
     func spot(num: Int) {
-        
+       
     }
     
     /// マスを生成
@@ -256,4 +256,3 @@ class GameManager: ObservableObject {
         isPosi = true
     }
 }
-

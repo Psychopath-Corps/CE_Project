@@ -13,7 +13,7 @@ struct DisplayView: View {
         if game.display == "Opening" {
             OpeningView()
         } else if game.display == "Setting" {
-            SettingView()
+            SettingView(isMovingSetting: $game.isMovingSetting)
         } else if game.display == "Play" {
             PlayView()
         } else if game.display == "" {

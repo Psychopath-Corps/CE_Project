@@ -64,7 +64,6 @@ struct dice: View {
     @ObservedObject var game: GameManager = .game
     var body: some View {
         ZStack{
-            // TODO: ここから
             if game.isPosi {
                 if game.heartMove {
                     ForEach(1..<game.health+1){ i in
@@ -84,7 +83,6 @@ struct dice: View {
                     Text("\(game.num)")
                         .font(.largeTitle)
                         .position(x: game.images[0].x, y: game.images[0].y)
-                    // TODO: ここまでのコメントを記載する
                     // ルーレットが回ってる時
                     if !game.walk {
                         Button("止める"){

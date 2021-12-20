@@ -75,12 +75,14 @@ struct dice: View {
                     }
                 }
                 
-                
+                // でかいハート
                 Image(systemName: "heart")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .position(x: game.images[0].x, y: game.images[0].y)
+                // ハートが集まるアニメーションが終わったら
                 if !game.heartMove {
+                    // スロットの数字
                     Text("\(game.num)")
                         .font(.largeTitle)
                         .position(x: game.images[0].x, y: game.images[0].y)

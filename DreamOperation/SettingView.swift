@@ -58,6 +58,7 @@ struct SettingView: View {
 }
 
 struct playerNameSetView: View {
+    @ObservedObject var game: GameManager = .game
     @State var timer: Timer!
     @State var btnStr = "決定"
     @State var participant = 4
@@ -160,6 +161,10 @@ struct playerNameSetView: View {
             // 順番の配列を、参照し、順番通りpinsに登録
             // 次の画面並行
         }
+    }
+    
+    func nameRegister() {
+        //game.pins[order[0]].name = nameList.0
     }
 }
 

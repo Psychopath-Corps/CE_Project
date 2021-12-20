@@ -134,7 +134,7 @@ struct event: View {
                     TurnView(isMoving: $isMovingTurn)
                 }
             }
-            .frame(width: 300, height: 100)
+            .frame(width: game.w*0.7, height: game.h*0.6)
         }
     }
 }

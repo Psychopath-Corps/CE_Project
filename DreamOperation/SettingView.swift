@@ -12,8 +12,6 @@ let h = UIScreen.main.bounds.height
 
 struct SettingView: View {
     @ObservedObject var game: GameManager = .game
-    // 画面遷移
-    @Binding var isMovingSetting: Bool
     
     var body: some View {
         ZStack{
@@ -104,7 +102,7 @@ struct playerNameSetView: View {
                     }
                     HStack{
                         if participant >= 3 {
-                            TextField("お名前", text: $nameList.1)
+                            TextField("お名前", text: $nameList.2)
                                 .frame(width: w/2, height: h/10)
                                 .border(Color.black)
                             if shuffle {
@@ -114,7 +112,7 @@ struct playerNameSetView: View {
                     }
                     HStack{
                         if participant == 4 {
-                            TextField("お名前", text: $nameList.1)
+                            TextField("お名前", text: $nameList.3)
                                 .frame(width: w/2, height: h/10)
                                 .border(Color.black)
                             if shuffle {
@@ -124,7 +122,7 @@ struct playerNameSetView: View {
                     }
                     
                 }
-                
+                /// 名前の中身が全部入った時に上に表示させる予定
                 Button(action: {
                     if participant < 4 {participant += 1}
                     orderDecision()

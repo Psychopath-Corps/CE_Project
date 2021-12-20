@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PlayView: View {
     @ObservedObject var game: GameManager = .game
+    @Binding var dice: Bool
     // マップを移動
     @GestureState var drag = CGSize.zero
     /// 横の画面サイズを取得
@@ -41,7 +42,6 @@ struct PlayView: View {
                 }
             }
             .offset(x: game.position.width + game.dragOffset.width + drag.width, y: game.position.height + game.dragOffset.height + drag.height)
-            
             // マップを移動できるようにするロジック
             .gesture(
                 DragGesture()
@@ -97,7 +97,7 @@ struct PlayView: View {
                     if !game.appear {
                         // サイコロを振る画面に移動
                         Button("歩む"){
-                            game.diceroll = true
+                            dice = true
                             // 背景を半透明にする
                             game.clearView = 0.5
                             game.createPosi(health: game.health)

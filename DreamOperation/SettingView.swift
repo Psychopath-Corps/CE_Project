@@ -15,44 +15,22 @@ struct SettingView: View {
     
     var body: some View {
         ZStack{
-            // 設定画面
-            if game.gamen == "setting" {
-                VStack{
-                    Text("設定")
-                    Button("PLAY"){
-                        game.display = "Play"
-                        //game.isMovingTurn = true
-                        //safeAreaの値を取得
-                        let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets.left
-                        if(safeAreaInsets! >= 44.0){
-                            game.dragOffset = CGSize(width: game.w/2 - 44, height: -game.w * 0.75 - 27)
-                        } else {
-                            game.dragOffset = CGSize(width: game.w/2, height: -game.w * 0.75)
-                        }
-                        game.pinClear[1] = 0.5
+            VStack{
+                Text("設定")
+                Button("PLAY"){
+                    game.display = "Play"
+                    //game.isMovingTurn = true
+                    //safeAreaの値を取得
+                    let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets.left
+                    if(safeAreaInsets! >= 44.0){
+                        game.dragOffset = CGSize(width: game.w/2 - 44, height: -game.w * 0.75 - 27)
+                    } else {
+                        game.dragOffset = CGSize(width: game.w/2, height: -game.w * 0.75)
                     }
-//                    // ターン画面に画面遷移
-//                    .fullScreenCover(isPresented: $game.isMovingTurn){
-//                        TurnView(isMoving: $game.isMovingTurn)
-//                    }
-                }
-            // プレイ画面
-            } else if game.gamen == "play" {
-                PlayView()
-                UIView()
-                // 歩むボタンを押したら
-                if game.diceroll {
-                    // diceを回す画面
-                    dice()
-                        .background(Color.white.opacity(game.clearView))
-                }
-                // サイコロで出た目分進んだあとに
-                if game.eventGamen {
-                    // イベント画面を表示する
-                    event()
-                        .background(Color.white.opacity(game.clearView))
+                    game.pinClear[1] = 0.5
                 }
             }
+            
         }
     }
 }
@@ -313,7 +291,7 @@ struct pinInfoSetView: View {
                         Text("夢は？")
                         TextField("佐野　炭治郎　の夢", text: $dream)
                             .frame(width: 150, height: 30)
-                            
+                        
                         Text("夢の目標金額")
                         
                         Button(action: {

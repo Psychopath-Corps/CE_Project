@@ -23,25 +23,43 @@ struct box: View {
                     .frame(width: w/5 , height: w/5)
                     .background(Color.gray)
                     .border(Color.green)
-                    .position(x: posi.x - w/20, y: posi.y + w/20)
+                    .position(x: posi.x - w/20, y: posi.y)
+            case 21..<30:
+                Text("\(n)")
+                    .frame(width: w/10, height: w/10)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x + w/20, y: posi.y - w/20)
+            case 31..<50:
+                Text("\(n)")
+                    .frame(width: w/10, height: w/10)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x, y: posi.y - w/10)
+            case 51..<55:
+                Text("\(n)")
+                    .frame(width: w/10, height: w/10)
+                    .background(Color.gray)
+                    .border(Color.green)
+                    .position(x: posi.x - w/20, y: posi.y - w/20)
             case 20:
                 Text("\(n)")
                     .frame(width: w/5, height: w/5)
                     .background(Color.gray)
                     .border(Color.green)
-                    .position(x: posi.x + w/20, y: posi.y + w/20)
+                    .position(x: posi.x + w/20, y: posi.y)
             case 30:
                 Text("\(n)")
                     .frame(width: w/5, height: w/5)
                     .background(Color.gray)
                     .border(Color.green)
-                    .position(x: posi.x + w/20, y: posi.y - w/20)
+                    .position(x: posi.x + w/20, y: posi.y - w/10)
             case 50:
                 Text("\(n)")
                     .frame(width: w/5, height: w/5)
                     .background(Color.gray)
                     .border(Color.green)
-                    .position(x: posi.x - w/20, y: posi.y - w/20)
+                    .position(x: posi.x - w/20, y: posi.y - w/10)
             case 65:
                 Text("\(n)")
                     .frame(width: w/5, height: w/5)
@@ -64,7 +82,6 @@ struct dice: View {
     @ObservedObject var game: GameManager = .game
     var body: some View {
         ZStack{
-            // TODO: ここから
             if game.isPosi {
                 if game.heartMove {
                     ForEach(1..<game.health+1){ i in
@@ -86,7 +103,6 @@ struct dice: View {
                     Text("\(game.num)")
                         .font(.largeTitle)
                         .position(x: game.images[0].x, y: game.images[0].y)
-                    // TODO: ここまでのコメントを記載する
                     // ルーレットが回ってる時
                     if !game.walk {
                         Button("止める"){

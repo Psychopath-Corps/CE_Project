@@ -150,7 +150,7 @@ class GameManager: ObservableObject {
             else if pinposi[a] <= 50{
                 dragOffset.width = w/2 - 2 * w - 44 + CGFloat(pinposi[a] - 30) * w/10
                 position.width = 0
-                dragOffset.height = -w * 0.75 - 27 + w/10
+                dragOffset.height = -w * 0.75 - 27 + w
                 position.height = 0
             }
             else if pinposi[a] <= 55{

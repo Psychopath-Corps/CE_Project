@@ -228,33 +228,47 @@ class GameManager: ObservableObject {
     }
     
     /// マスを生成
-    ///TODO: 配置綺麗にする
+    ///TODO: これをforeachに適応。
     func createPosi() {
-        // 0~20
-        for i in 0...20{
-            let new = (x: w/10 * CGFloat(i), y: w)
+        let tate = w/10 * 0.6
+        let yoko = w/10
+        // 0
+        stepPosi.append((x: -yoko/2, y: w))
+        // 1~19
+        for i in 1...19{
+            let new = (x: yoko*CGFloat(i), y: w)
             stepPosi.append(new)
         }
-        // 21~30
-        for i in 1...10{
-            let new = (x: w * 2, y: w - w/10 * CGFloat(i))
+        // 20
+        stepPosi.append((x: w*2 + yoko/2, y: w))
+        // 21~35
+        for i in 1...15{
+            let new = (x: w*2 + yoko/2, y: w - (tate*CGFloat(i) + tate/2))
             stepPosi.append(new)
         }
-        //31~50
-        for i in 1...20{
-            let new = (x: w*2 - w/10 * CGFloat(i), y: CGFloat(0))
+        // 36
+        stepPosi.append((x: w*2 + yoko/2, y: -tate/2))
+        //37~55
+        for i in 1...19{
+            let new = (x: w*2 - yoko*CGFloat(i), y: -tate/2)
             stepPosi.append(new)
         }
-        // 51~55
+        // 56
+        stepPosi.append((x: -yoko/2, y: -tate/2))
+        // 57~62
         for i in 1...5{
-            let new = (x: CGFloat(0), y: w/10 * CGFloat(i))
+            let new = (x: -yoko/2, y: tate*CGFloat(i))
             stepPosi.append(new)
         }
-        // 56~65
-        for i in 1...10{
-            let new = (x: w/10 * CGFloat(i), y: w/2)
+        //62
+        stepPosi.append((x: -yoko/2, y: tate*6 + tate/2))
+        // 63~71
+        for i in 1...9{
+            let new = (x: yoko*CGFloat(i), y: tate*6 + tate/2)
             stepPosi.append(new)
         }
+        // 72
+        stepPosi.append((x: yoko*10 + yoko/2, y: tate*6 + tate/2))
         //mapPosi = (x: w/2, y: -h)
         isPosi = true
     }

@@ -11,7 +11,7 @@ class GameManager: ObservableObject {
     private init(){ }
     
     @Published var display = "Opening"
-    
+    @Published var settingDisp = "nameSetting"
     static let game = GameManager()
     /// 設定画面の遷移
     @State var isMovingSetting = false
@@ -228,6 +228,7 @@ class GameManager: ObservableObject {
     }
     
     /// マスを生成
+    ///TODO: 配置綺麗にする
     func createPosi() {
         // 0~20
         for i in 0...20{

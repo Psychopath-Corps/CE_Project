@@ -14,6 +14,10 @@ struct DreamOperationApp: App {
             DisplayView()
             //mapView()
 //            dice()
+            //playerNameSetView()
+            //pinInfoSetView()
+            
+            //SettingView()
         }
     }
 }

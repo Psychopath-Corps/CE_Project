@@ -7,10 +7,11 @@
 
 import SwiftUI
 
+let w = UIScreen.main.bounds.width
+let h = UIScreen.main.bounds.height
+
 struct SettingView: View {
     @ObservedObject var game: GameManager = .game
-    // 画面遷移
-    @Binding var isMovingSetting: Bool
     
     var body: some View {
         ZStack{
@@ -68,14 +69,15 @@ struct playerNameSetView: View {
             VStack{
                 HStack{
                     Text("参加者")
+                        .font(.largeTitle)
                     Button(action: {
-                        if participant < 4 {participant += 1}
+                        if participant > 2 {participant -= 1}
                     }){
                         Image(systemName: "arrowtriangle.left.fill")
                     }
                     Text("\(participant)")
                     Button(action: {
-                        if participant > 2 {participant -= 1}
+                        if participant < 4 {participant += 1}
                     }){
                         Image(systemName: "arrowtriangle.right.fill")
                     }
@@ -84,19 +86,25 @@ struct playerNameSetView: View {
                 Group{
                     HStack{
                         TextField("お名前", text: $nameList.0)
+                            .frame(width: w/2, height: h/10)
+                            .border(Color.black)
                         if shuffle {
                             Image(systemName: "\(order[0]).square")
                         }
                     }
                     HStack{
                         TextField("お名前", text: $nameList.1)
+                            .frame(width: w/2, height: h/10)
+                            .border(Color.black)
                         if shuffle {
                             Image(systemName: "\(order[1]).square")
                         }
                     }
                     HStack{
                         if participant >= 3 {
-                            TextField("お名前", text: $nameList.1)
+                            TextField("お名前", text: $nameList.2)
+                                .frame(width: w/2, height: h/10)
+                                .border(Color.black)
                             if shuffle {
                                 Image(systemName: "\(order[2]).square")
                             }
@@ -104,7 +112,9 @@ struct playerNameSetView: View {
                     }
                     HStack{
                         if participant == 4 {
-                            TextField("お名前", text: $nameList.1)
+                            TextField("お名前", text: $nameList.3)
+                                .frame(width: w/2, height: h/10)
+                                .border(Color.black)
                             if shuffle {
                                 Image(systemName: "\(order[3]).square")
                             }
@@ -112,9 +122,10 @@ struct playerNameSetView: View {
                     }
                     
                 }
-                
+                /// 名前の中身が全部入った時に上に表示させる予定
                 Button(action: {
                     if participant < 4 {participant += 1}
+                    orderDecision()
                 }){
                     Text("\(btnStr)")
                         .font(.largeTitle)
@@ -296,6 +307,8 @@ struct pinInfoSetView: View {
                     VStack{
                         Text("夢は？")
                         TextField("佐野　炭治郎　の夢", text: $dream)
+                            .frame(width: 150, height: 30)
+                            
                         Text("夢の目標金額")
                         
                         Button(action: {
@@ -350,7 +363,7 @@ struct pinInfoSetView: View {
                     
                 }){
                     Text("決定")
-                        .font(.largeTitle)
+                        .font(.title)
                         .fontWeight(.heavy)
                         .foregroundColor(Color.white)
                         .padding()

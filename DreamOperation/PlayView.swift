@@ -26,7 +26,7 @@ struct PlayView: View {
                     .position(x: w, y: w/2)
                 // マス目を生成
                 if game.isPosi{
-                    ForEach(0..<66){ num in
+                    ForEach(0..<73){ num in
                         box(n: num, posi: game.stepPosi[num])
                     }
                     Image("pinImage")
@@ -112,9 +112,19 @@ struct PlayView: View {
         }.onAppear{
             game.mapPosi = (x: w/2, y: -h)
             game.createPosi()
+            getSafealea()
         }
     }
-    
+    func getSafealea() {
+        //safeAreaの値を取得
+        let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets.left
+        if(safeAreaInsets! >= 44.0){
+            game.dragOffset = CGSize(width: game.w/2 - 44, height: -game.w * 0.75 - 27)
+        } else {
+            game.dragOffset = CGSize(width: game.w/2, height: -game.w * 0.75)
+        }
+        game.pinClear[1] = 0.5
+    }
     
 }
 

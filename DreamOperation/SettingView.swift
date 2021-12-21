@@ -23,21 +23,12 @@ struct SettingView: View {
                 
             }
             
-//            VStack{
-//                Text("設定")
-//                Button("PLAY"){
-//                    game.display = "Play"
-//                    //game.isMovingTurn = true
-//                    //safeAreaの値を取得
-//                    let safeAreaInsets = UIApplication.shared.keyWindow?.safeAreaInsets.left
-//                    if(safeAreaInsets! >= 44.0){
-//                        game.dragOffset = CGSize(width: game.w/2 - 44, height: -game.w * 0.75 - 27)
-//                    } else {
-//                        game.dragOffset = CGSize(width: game.w/2, height: -game.w * 0.75)
-//                    }
-//                    game.pinClear[1] = 0.5
-//                }
-//            }
+            VStack{
+                Text("設定")
+                Button("PLAY"){
+                    game.display = "Play"
+                }
+            }
             
         }
     }

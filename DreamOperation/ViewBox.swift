@@ -17,62 +17,21 @@ struct box: View {
     let posi: (x:CGFloat, y: CGFloat)
     var body: some View {
         ZStack{
-            switch n {
-            case 0, 55:
+            if n == 0 || n == 20 || n == 36 ||
+                n == 56 || n == 62 || n == 72 {
                 Text("\(n)")
-                    .frame(width: w/5 , height: w/5)
+                    .frame(width: w/5, height: w/5 * 0.6)
                     .background(Color.gray)
                     .border(Color.green)
-                    .position(x: posi.x - w/20, y: posi.y)
-            case 21..<30:
+                    .position(x: posi.x, y: posi.y)
+            } else {
                 Text("\(n)")
-                    .frame(width: w/10, height: w/10)
-                    .background(Color.gray)
-                    .border(Color.green)
-                    .position(x: posi.x + w/20, y: posi.y - w/20)
-            case 31..<50:
-                Text("\(n)")
-                    .frame(width: w/10, height: w/10)
-                    .background(Color.gray)
-                    .border(Color.green)
-                    .position(x: posi.x, y: posi.y - w/10)
-            case 51..<55:
-                Text("\(n)")
-                    .frame(width: w/10, height: w/10)
-                    .background(Color.gray)
-                    .border(Color.green)
-                    .position(x: posi.x - w/20, y: posi.y - w/20)
-            case 20:
-                Text("\(n)")
-                    .frame(width: w/5, height: w/5)
-                    .background(Color.gray)
-                    .border(Color.green)
-                    .position(x: posi.x + w/20, y: posi.y)
-            case 30:
-                Text("\(n)")
-                    .frame(width: w/5, height: w/5)
-                    .background(Color.gray)
-                    .border(Color.green)
-                    .position(x: posi.x + w/20, y: posi.y - w/10)
-            case 50:
-                Text("\(n)")
-                    .frame(width: w/5, height: w/5)
-                    .background(Color.gray)
-                    .border(Color.green)
-                    .position(x: posi.x - w/20, y: posi.y - w/10)
-            case 65:
-                Text("\(n)")
-                    .frame(width: w/5, height: w/5)
-                    .background(Color.gray)
-                    .border(Color.green)
-                    .position(x: posi.x - w/20, y: posi.y)
-            default:
-                Text("\(n)")
-                    .frame(width: w/10, height: w/10)
+                    .frame(width: w/10, height: w/10 * 0.6)
                     .background(Color.gray)
                     .border(Color.green)
                     .position(x: posi.x, y: posi.y)
             }
+            
         }
     }
 }

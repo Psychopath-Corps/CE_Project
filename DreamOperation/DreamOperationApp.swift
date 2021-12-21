@@ -16,7 +16,7 @@ struct DreamOperationApp: App {
 //            dice()
             //playerNameSetView()
             //pinInfoSetView()
-            
+            //PlayView()
             //SettingView()
         }
     }

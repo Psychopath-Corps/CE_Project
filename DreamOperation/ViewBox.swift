@@ -19,20 +19,26 @@ struct box: View {
         ZStack{
             if n == 0 || n == 20 || n == 36 ||
                 n == 56 || n == 62 || n == 72 {
-                Text("\(n)")
+                Image("ます")
+                    .resizable()
                     .frame(width: w/5, height: w/5 * 0.6)
-                    .background(Color.gray)
-                    .border(Color.green)
+//                    .background(Color.gray)
+//                    .border(Color.green)
                     .position(x: posi.x, y: posi.y)
             } else {
-                Text("\(n)")
+                Image("ます")
+                    .resizable()
                     .frame(width: w/10, height: w/10 * 0.6)
-                    .background(Color.gray)
-                    .border(Color.green)
+//                    .background(Color.gray)
+//                    .border(Color.green)
                     .position(x: posi.x, y: posi.y)
             }
             
         }
+        Text("\(n)")
+            .foregroundColor(Color.black)
+            .fontWeight(.heavy)
+            .position(x: posi.x, y: posi.y)
     }
 }
 

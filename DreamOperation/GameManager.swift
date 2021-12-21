@@ -243,7 +243,7 @@ class GameManager: ObservableObject {
         stepPosi.append((x: w*2 + yoko/2, y: w))
         // 21~35
         for i in 1...15{
-            let new = (x: w*2 + yoko/2, y: w - (tate*CGFloat(i) + tate/2))
+            let new = (x: w*2 + yoko/2, y: (w - tate*CGFloat(i)) - tate/2)
             stepPosi.append(new)
         }
         // 36

@@ -181,20 +181,22 @@ struct pinInfoSetView: View {
     @State var needMoney = 5000000
     var body: some View {
         ZStack{
-            Group{
-                Image("pin")
-                    .resizable()
-                    .frame(width: h*0.35, height: h*0.7)
-                    .position(x: w/8, y: h*0.4)
-                Image("Wshirts")
-                    .resizable()
-                    .frame(width: h*0.35, height: h*0.35)
-                    .position(x: w/8, y: h*0.4)
-            }
             
             HStack{
-                VStack{
+                VStack(spacing: 0){
                     Spacer()
+                    Image("head")
+                        .resizable()
+                        .frame(width: h*0.4, height: h*0.2)
+                        .border(Color.black)
+                    Image("Wshirts")
+                        .resizable()
+                        .frame(width: h*0.4, height: h*0.4)
+                        .border(Color.black)
+                    Image("food")
+                        .resizable()
+                        .frame(width: h*0.4, height: h*0.2)
+                        .border(Color.black)
                     Text("佐野　炭治郎")
                     Spacer().frame(height: 10)
                 }.frame(width: w/5)

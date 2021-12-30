@@ -19,21 +19,14 @@ struct SettingView: View {
                 playerNameSetView()
             } else if game.settingDisp == "pinInfoSetting" {
                 pinInfoSetView()
-            } else {
-                
+            } else if game.settingDisp == "loading" {
+                LoadingView()
             }
-            
-            VStack{
-                Text("設定")
-                Button("PLAY"){
-                    game.display = "Play"
-                }
-            }
-            
         }
     }
 }
 
+/// 人数、名前、順番を決定する画面
 struct playerNameSetView: View {
     @ObservedObject var game: GameManager = .game
     @State var timer: Timer!
@@ -166,15 +159,15 @@ struct playerNameSetView: View {
                 game.pins[i].name = nameList[i]
             }
             // 次の画面並行
+            game.settingDisp = "pinInfoSetting"
         }
     }
     
-    func nameRegister() {
-        //game.pins[order[0]].name = nameList.0
-    }
 }
 
+/// いろ、ふく、夢を設定する画面
 struct pinInfoSetView: View {
+    @ObservedObject var game: GameManager = .game
     let w = UIScreen.main.bounds.width
     let h = UIScreen.main.bounds.height
     @State var dream = ""
@@ -185,127 +178,132 @@ struct pinInfoSetView: View {
             HStack{
                 VStack(spacing: 0){
                     Spacer()
-                    Image("head")
-                        .resizable()
-                        .frame(width: h*0.4, height: h*0.2)
-                        .border(Color.black)
-                    Image("Wshirts")
-                        .resizable()
-                        .frame(width: h*0.4, height: h*0.4)
-                        .border(Color.black)
-                    Image("food")
-                        .resizable()
-                        .frame(width: h*0.4, height: h*0.2)
-                        .border(Color.black)
+                    pinSkin()
                     Text("佐野　炭治郎")
                     Spacer().frame(height: 10)
                 }.frame(width: w/5)
                 
-                VStack{
+                VStack(spacing: 0){
                     Text("色")
-                    HStack{
-                        Button(action: {}){
+                    HStack(spacing: 0){
+                        Button(action: {game.pins[game.playing].color = "黒"}){
+                            Text("赤")
+                                .frame(width: 50, height: 50)
+                                .background(Color.red)
+                                .border(Color.black)
+                        }
+                        Button(action: {game.pins[game.playing].color = "黒"}){
                             Text("青")
-                                .frame(width: 30, height: 30)
+                                .frame(width: 50, height: 50)
                                 .background(Color.blue)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("青")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {game.pins[game.playing].color = "黒"}){
+                            Text("緑")
+                                .frame(width: 50, height: 50)
+                                .background(Color.green)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("青")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
-                                .border(Color.black)
-                        }
-                        Button(action: {}){
-                            Text("青")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {game.pins[game.playing].color = "黒"}){
+                            Text("黄")
+                                .frame(width: 50, height: 50)
+                                .background(Color.yellow)
                                 .border(Color.black)
                         }
                     }
-                    HStack{
-                        Button(action: {}){
-                            Text("青")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                    HStack(spacing: 0){
+                        Button(action: {game.pins[game.playing].color = "黒"}){
+                            Text("紫")
+                                .frame(width: 50, height: 50)
+                                .background(Color.purple)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("青")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {game.pins[game.playing].color = "黒"}){
+                            Text("桃")
+                                .frame(width: 50, height: 50)
+                                .background(Color.pink)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("青")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {game.pins[game.playing].color = "黒"}){
+                            Text("橙")
+                                .frame(width: 50, height: 50)
+                                .background(Color.orange)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("青")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {game.pins[game.playing].color = "黒"}){
+                            Text("黒")
+                                .frame(width: 50, height: 50)
+                                .background(Color.black)
                                 .border(Color.black)
                         }
                     }
                     
                     Text("服")
-                    HStack{
-                        Button(action: {}){
-                            Text("服1")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                    HStack(spacing: 0){
+                        Button(action: {
+                            game.pins[game.playing].style = "ワイシャツ"
+                        }){
+                            Image("ワイシャツ")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("服2")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {
+                            game.pins[game.playing].style = "コート男"
+                        }){
+                            Image("コート男")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("服3")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {
+                            game.pins[game.playing].style = "バカトレーナー"
+                        }){
+                            Image("バカトレーナー")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("服4")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {
+                            game.pins[game.playing].style = "バカTシャツ"
+                        }){
+                            Image("バカTシャツ")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
                     }
-                    HStack{
-                        Button(action: {}){
-                            Text("服5")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                    HStack(spacing: 0){
+                        Button(action: {
+                            game.pins[game.playing].style = "制服男"
+                        }){
+                            Image("制服男")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("服6")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {
+                            game.pins[game.playing].style = "制服女"
+                        }){
+                            Image("制服女")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("服7")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {
+                            game.pins[game.playing].style = "スカート"
+                        }){
+                            Image("スカート")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
-                        Button(action: {}){
-                            Text("服8")
-                                .frame(width: 30, height: 30)
-                                .background(Color.blue)
+                        Button(action: {
+                            game.pins[game.playing].style = "可愛い"
+                        }){
+                            Image("可愛い")
+                                .resizable()
+                                .frame(width: 50, height: 50)
                                 .border(Color.black)
                         }
                     }
@@ -374,7 +372,7 @@ struct pinInfoSetView: View {
                     Text("スコア倍率：")
                     
                     Button(action: {
-                        
+                        game.settingDisp = "loading"
                     }){
                         Text("決定")
                             .font(.title)
@@ -397,6 +395,9 @@ struct LoadingView: View {
     var body: some View {
         ZStack{
             VStack{
+                Button(action: {game.display = "Play"}){
+                    Text("Play")
+                }
                 HStack{
                     VStack{
 //                        Text("夢\(game.pins[0].dream)")

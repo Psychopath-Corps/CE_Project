@@ -11,11 +11,11 @@ import SwiftUI
 struct DreamOperationApp: App {
     var body: some Scene {
         WindowGroup {
-            //DisplayView()
+            DisplayView()
             //mapView()
 //            dice()
             //playerNameSetView()
-            pinInfoSetView()
+            //pinInfoSetView()
             //PlayView()
             //SettingView()
         }

@@ -42,7 +42,9 @@ class GameManager: ObservableObject {
     @Published var pin2 = (x: CGFloat(0), y: CGFloat(0))
     @Published var pinposi = [0, 0, 0, 0]
     @Published var pinNumber = 0
-    @Published var playing = 1
+    
+    /// 現在操作しているプレイヤー
+    @Published var playing = 0
     
     /// 画面を切り替えるための
     @Published var gamen = "setting"

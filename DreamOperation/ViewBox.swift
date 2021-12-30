@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+struct pinSkin: View {
+    @ObservedObject var game: GameManager = .game
+    let w = UIScreen.main.bounds.width
+    let h = UIScreen.main.bounds.height
+    var body: some View {
+        VStack(spacing: 0){
+            Image("頭\(game.pins[game.playing].color)")
+                .resizable()
+                .frame(width: h*0.4, height: h*0.2)
+            Image("\(game.pins[game.playing].style)")
+                .resizable()
+                .frame(width: h*0.4, height: h*0.4)
+            Image("足\(game.pins[game.playing].color)")
+                .resizable()
+                .frame(width: h*0.4, height: h*0.2)
+        }
+    }
+}
 
 // マップに番号を振る
 struct box: View {

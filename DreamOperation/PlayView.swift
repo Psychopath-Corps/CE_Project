@@ -20,7 +20,7 @@ struct PlayView: View {
     var body: some View {
         ZStack{
             Group{
-                Image("green")
+                Image("背景")
                     .resizable()
                     .frame(width: w*3, height: w*1.5)
                     .position(x: w, y: w/2)
@@ -29,16 +29,12 @@ struct PlayView: View {
                     ForEach(0..<73){ num in
                         box(n: num, posi: game.stepPosi[num])
                     }
-                    Image("pinImage")
-                        .resizable()
-                        .frame(width: 40, height: 80)
-                        .position(x: game.stepPosi[game.pinposi[0]].x, y: game.stepPosi[game.pinposi[0]].y-w/40)
-                        .opacity(game.pinClear[0])
-                    Image("pinImage")
-                        .resizable()
-                        .frame(width: 40, height: 80)
-                        .position(x: game.stepPosi[game.pinposi[1]].x, y: game.stepPosi[game.pinposi[1]].y-w/40)
-                        .opacity(game.pinClear[1])
+                    
+                    ForEach(0..<game.pins.count){ i in
+                        pinSkin(num: i, size: CGFloat(0.3))
+                            .position(x: game.stepPosi[game.pinposi[i]].x, y: game.stepPosi[game.pinposi[i]].y-w/40)
+                            .opacity(game.pinClear[i])
+                    }
                 }
             }
             .offset(x: game.position.width + game.dragOffset.width + drag.width, y: game.position.height + game.dragOffset.height + drag.height)

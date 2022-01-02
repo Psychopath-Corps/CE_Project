@@ -29,7 +29,7 @@ class GameManager: ObservableObject {
     
     /// プレイヤーのステータス
     @Published var pins:[(num: Int, name: String, color: String, style: String,
-                          place: Int, money: Int, health: Int,
+                          place: Int, money: Int, health: Int, dream: String,
                           salary: Int, pay: Int, follow1: String, follow2: String)] = []
     
     /// 初期位置を決める

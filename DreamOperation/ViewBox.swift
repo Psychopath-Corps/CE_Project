@@ -11,17 +11,19 @@ struct pinSkin: View {
     @ObservedObject var game: GameManager = .game
     let w = UIScreen.main.bounds.width
     let h = UIScreen.main.bounds.height
+    var num: Int
+    var size: CGFloat
     var body: some View {
         VStack(spacing: 0){
-            Image("頭\(game.pins[game.playing].color)")
+            Image("頭\(game.pins[num].color)")
                 .resizable()
-                .frame(width: h*0.4, height: h*0.2)
-            Image("\(game.pins[game.playing].style)")
+                .frame(width: h*0.4*size, height: h*0.2*size)
+            Image("\(game.pins[num].style)")
                 .resizable()
-                .frame(width: h*0.4, height: h*0.4)
-            Image("足\(game.pins[game.playing].color)")
+                .frame(width: h*0.4*size, height: h*0.4*size)
+            Image("足\(game.pins[num].color)")
                 .resizable()
-                .frame(width: h*0.4, height: h*0.2)
+                .frame(width: h*0.4*size, height: h*0.2*size)
         }
     }
 }
@@ -40,8 +42,7 @@ struct box: View {
                 Image("ます")
                     .resizable()
                     .frame(width: w/5, height: w/5 * 0.6)
-//                    .background(Color.gray)
-//                    .border(Color.green)
+                    .border(Color.gray)
                     .position(x: posi.x, y: posi.y)
             } else {
                 Image("ます")

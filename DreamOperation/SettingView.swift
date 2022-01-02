@@ -48,6 +48,8 @@ struct playerNameSetView: View {
                             .border(Color.black)
                         if shuffle {
                             Image(systemName: "1.square")
+                                .resizable()
+                                .frame(width: h/10, height: h/10)
                         }
                     }
                     HStack{
@@ -56,6 +58,8 @@ struct playerNameSetView: View {
                             .border(Color.black)
                         if shuffle {
                             Image(systemName: "2.square")
+                                .resizable()
+                                .frame(width: h/10, height: h/10)
                         }
                     }
                     HStack{
@@ -65,6 +69,8 @@ struct playerNameSetView: View {
                                 .border(Color.black)
                             if shuffle {
                                 Image(systemName: "3.square")
+                                    .resizable()
+                                    .frame(width: h/10, height: h/10)
                             }
                         }
                     }
@@ -75,6 +81,8 @@ struct playerNameSetView: View {
                                 .border(Color.black)
                             if shuffle {
                                 Image(systemName: "4.square")
+                                    .resizable()
+                                    .frame(width: h/10, height: h/10)
                             }
                         }
                     }
@@ -142,8 +150,8 @@ struct playerNameSetView: View {
     }
     
     func orderDecision() {
-        for i in 0...nameList.count {
-            game.pins.append((num: i, name: "", color: "", style: "", place: 0, money: 10000, health: 5, salary: 0, pay: 0, follow1: "", follow2: ""))
+        for i in 0..<nameList.count {
+            game.pins.append((num: i, name: "", color: "黒", style: "ワイシャツ", place: 0, money: 10000, health: 5, dream: "", salary: 0, pay: 0, follow1: "", follow2: ""))
         }
         shuffle = true
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true){ _ in
@@ -175,11 +183,11 @@ struct pinInfoSetView: View {
     var body: some View {
         ZStack{
             
-            HStack{
+            HStack(spacing: 20){
                 VStack(spacing: 0){
                     Spacer()
-                    pinSkin()
-                    Text("佐野　炭治郎")
+                    pinSkin(num: game.playing, size: 1)
+                    Text("\(game.pins[game.playing].name)")
                     Spacer().frame(height: 10)
                 }.frame(width: w/5)
                 
@@ -311,68 +319,96 @@ struct pinInfoSetView: View {
                 
                 VStack{
                     Text("夢は？")
-                    TextField("佐野　炭治郎　の夢", text: $dream)
+                    TextField("\(game.pins[game.playing].name) の 夢",
+                              text: $game.pins[game.playing].dream)
                         .frame(width: 150, height: 30)
+                        .border(Color.black)
                     
                     Text("夢の目標金額")
                     
-                    Button(action: {
-                        needMoney = 10000000
-                    }){
-                        Text("¥10000000")
-                            .foregroundColor(Color.black)
-                            .frame(width: 100, height: 30)
-                            .background(Color.white)
-                            .border(Color.black)
+                    HStack{
+                        Button(action: {
+                            needMoney = 10000000
+                        }){
+                            Text("¥10000000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        if needMoney==10000000 {
+                            Image(systemName: "arrowtriangle.left.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(Color.black)
+                        }
                     }
-                    Button(action: {
-                        needMoney = 7500000
-                    }){
-                        Text("¥7500000")
-                            .foregroundColor(Color.black)
-                            .frame(width: 100, height: 30)
-                            .background(Color.white)
-                            .border(Color.black)
+                    
+                    HStack{
+                        Button(action: {
+                            needMoney = 7500000
+                        }){
+                            Text("¥7500000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        if needMoney==7500000 {
+                            Image(systemName: "arrowtriangle.left.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(Color.black)
+                        }
                     }
-                    Button(action: {
-                        needMoney = 5000000
-                    }){
-                        Text("¥5000000")
-                            .foregroundColor(Color.black)
-                            .frame(width: 100, height: 30)
-                            .background(Color.white)
-                            .border(Color.black)
+                    
+                    HStack{
+                        Button(action: {
+                            needMoney = 5000000
+                        }){
+                            Text("¥5000000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        if needMoney==5000000 {
+                            Image(systemName: "arrowtriangle.left.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(Color.black)
+                        }
                     }
-                    Button(action: {
-                        needMoney = 2500000
-                    }){
-                        Text("¥2500000")
-                            .foregroundColor(Color.black)
-                            .frame(width: 100, height: 30)
-                            .background(Color.white)
-                            .border(Color.black)
-                    }
-                    Button(action: {
-                        needMoney = 1000000
-                    }){
-                        Text("¥1000000")
-                            .foregroundColor(Color.black)
-                            .frame(width: 100, height: 30)
-                            .background(Color.white)
-                            .border(Color.black)
+                    
+                    HStack{
+                        Button(action: {
+                            needMoney = 2500000
+                        }){
+                            Text("¥2500000")
+                                .foregroundColor(Color.black)
+                                .frame(width: 100, height: 30)
+                                .background(Color.white)
+                                .border(Color.black)
+                        }
+                        if needMoney==2500000 {
+                            Image(systemName: "arrowtriangle.left.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(Color.black)
+                        }
                     }
                 }.frame(width: w/5)
                 
                 VStack{
                     
-                    Text("色：")
-                    Text("服：")
-                    Text("夢：")
-                    Text("目標金額：")
+                    Text("色：\(game.pins[game.playing].color)")
+                    Text("服：\(game.pins[game.playing].style)")
+                    Text("夢：\(game.pins[game.playing].dream)")
+                    Text("目標金額：\(needMoney)")
                     Text("スコア倍率：")
                     
                     Button(action: {
-                        game.settingDisp = "loading"
+                        decision()
                     }){
                         Text("決定")
                             .font(.title)
@@ -383,6 +419,18 @@ struct pinInfoSetView: View {
                             .border(Color.gray, width: 5)
                     }
                 }.frame(width: w/5)
+            }
+        }
+    }
+    func decision() {
+        // 夢の入力を確認
+        if game.pins[game.playing].dream != "" {
+            game.playing += 1
+            // 登録するのが最後の人かどうかをチェック
+            if game.playing == game.pins.count {
+                // 次の人がいない場合
+                game.settingDisp = "loading"
+                game.playing = 0
             }
         }
     }
@@ -399,27 +447,16 @@ struct LoadingView: View {
                     Text("Play")
                 }
                 HStack{
-                    VStack{
-//                        Text("夢\(game.pins[0].dream)")
-//                        Text("¥\(game.pins[0].needMoney)")
-                        Image("pinsImage")
-                            .resizable()
-                            .frame(width: 100, height: 200)
-                        Text("¥\(game.pins[0].name)")
-                    }
-                    VStack{
-                        
-                    }
-                    if game.pins.count >= 3 {
+                    ForEach(0..<game.pins.count){ i in
                         VStack{
-                            
+                            Text("夢\(game.pins[i].dream)")
+                            //Text("¥\(game.pins[0].needMoney)")
+                            pinSkin(num: i, size: CGFloat(0.7))
+                                
+                            Text("\(game.pins[i].name)")
                         }
                     }
-                    if game.pins.count == 4 {
-                        VStack{
-                            
-                        }
-                    }
+                   
                 }
                 Text("開始まで\(count)秒")
             }

@@ -8,30 +8,23 @@
 import SwiftUI
 
 struct UIView: View {
+    @ObservedObject var game: GameManager = .game
     var body: some View {
         VStack{
             HStack{
-                Text("のターン")
+                Text("\(game.pins[game.playing].name)のターン")
                 Spacer()
-                Image("pinImage")
-                    .resizable()
-                    .frame(width: 20, height: 40)
-                Image("pinImage")
-                    .resizable()
-                    .frame(width: 20, height: 40)
-                Image("pinImage")
-                    .resizable()
-                    .frame(width: 20, height: 40)
-                Image("pinImage")
-                    .resizable()
-                    .frame(width: 20, height: 40)
+                ForEach(0..<game.pins.count){ num in
+                    pinSkin(num: num, size: CGFloat(0.2))
+                }
+                
             }
             Spacer()
             HStack{
                 Spacer()
                 VStack{
-                    Text("♡ 8")
-                    Text("¥ 768,868")
+                    Text("♡ \(game.pins[game.playing].health)")
+                    Text("¥ \(game.pins[game.playing].money)")
                 }
             }
             Spacer().frame(height: 10)

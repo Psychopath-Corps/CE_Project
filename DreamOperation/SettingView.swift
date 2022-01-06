@@ -7,14 +7,15 @@
 
 import SwiftUI
 
-let w = UIScreen.main.bounds.width
-let h = UIScreen.main.bounds.height
-
+/// 三種類のViewの表示の管理
 struct SettingView: View {
     @ObservedObject var game: GameManager = .game
     
     var body: some View {
         ZStack{
+            Image("oldPaper")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
             if game.settingDisp == "nameSetting" {
                 playerNameSetView()
             } else if game.settingDisp == "pinInfoSetting" {
@@ -29,6 +30,8 @@ struct SettingView: View {
 /// 人数、名前、順番を決定する画面
 struct playerNameSetView: View {
     @ObservedObject var game: GameManager = .game
+    let w = UIScreen.main.bounds.width
+    let h = UIScreen.main.bounds.height
     @State var timer: Timer!
     @State var btnStr = "決定"
     @State var nameList: [String] = ["",""]
@@ -41,6 +44,7 @@ struct playerNameSetView: View {
                 Text("")
                     .font(.largeTitle)
                 
+                // 縦積み最大4人分の名前を登録するTextField
                 Group{
                     HStack{
                         TextField("お名前", text: $nameList[0])
@@ -151,7 +155,7 @@ struct playerNameSetView: View {
     
     func orderDecision() {
         for i in 0..<nameList.count {
-            game.pins.append((num: i, name: "", color: "黒", style: "ワイシャツ", place: 0, money: 10000, health: 5, dream: "", salary: 0, pay: 0, follow1: "", follow2: ""))
+            game.pins.append((num: i, name: "", color: "黒", style: "ワイシャツ", place: 0, money: 10000, health: 5, dream: "", needMoney: 5000000, salary: 0, pay: 0, follow1: "", follow2: ""))
         }
         shuffle = true
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true){ _ in
@@ -179,11 +183,11 @@ struct pinInfoSetView: View {
     let w = UIScreen.main.bounds.width
     let h = UIScreen.main.bounds.height
     @State var dream = ""
-    @State var needMoney = 5000000
     var body: some View {
         ZStack{
             
             HStack(spacing: 20){
+                
                 VStack(spacing: 0){
                     Spacer()
                     pinSkin(num: game.playing, size: 1)
@@ -191,211 +195,54 @@ struct pinInfoSetView: View {
                     Spacer().frame(height: 10)
                 }.frame(width: w/5)
                 
-                VStack(spacing: 0){
-                    Text("色")
-                    HStack(spacing: 0){
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("赤")
-                                .frame(width: 50, height: 50)
-                                .background(Color.red)
-                                .border(Color.black)
-                        }
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("青")
-                                .frame(width: 50, height: 50)
-                                .background(Color.blue)
-                                .border(Color.black)
-                        }
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("緑")
-                                .frame(width: 50, height: 50)
-                                .background(Color.green)
-                                .border(Color.black)
-                        }
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("黄")
-                                .frame(width: 50, height: 50)
-                                .background(Color.yellow)
-                                .border(Color.black)
+                VStack(spacing: 3){
+                    
+                    Text("色を選んでください")
+                        .font(.system(.title3, design: .monospaced))
+                        .fontWeight(.bold)
+                    // 1列目
+                    HStack(spacing: 3){
+                        ForEach(0..<4){ num in
+                            buttonOfColorSetting(colorNum: num)
                         }
                     }
-                    HStack(spacing: 0){
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("紫")
-                                .frame(width: 50, height: 50)
-                                .background(Color.purple)
-                                .border(Color.black)
-                        }
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("桃")
-                                .frame(width: 50, height: 50)
-                                .background(Color.pink)
-                                .border(Color.black)
-                        }
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("橙")
-                                .frame(width: 50, height: 50)
-                                .background(Color.orange)
-                                .border(Color.black)
-                        }
-                        Button(action: {game.pins[game.playing].color = "黒"}){
-                            Text("黒")
-                                .frame(width: 50, height: 50)
-                                .background(Color.black)
-                                .border(Color.black)
+                    // 2列目
+                    HStack(spacing: 3){
+                        ForEach(4..<8){ num in
+                            buttonOfColorSetting(colorNum: num)
                         }
                     }
                     
-                    Text("服")
-                    HStack(spacing: 0){
-                        Button(action: {
-                            game.pins[game.playing].style = "ワイシャツ"
-                        }){
-                            Image("ワイシャツ")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
-                        }
-                        Button(action: {
-                            game.pins[game.playing].style = "コート男"
-                        }){
-                            Image("コート男")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
-                        }
-                        Button(action: {
-                            game.pins[game.playing].style = "バカトレーナー"
-                        }){
-                            Image("バカトレーナー")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
-                        }
-                        Button(action: {
-                            game.pins[game.playing].style = "バカTシャツ"
-                        }){
-                            Image("バカTシャツ")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
+                    Text("\n服を選んでください")
+                        .font(.system(.title3, design: .monospaced))
+                        .fontWeight(.bold)
+                    // 1列目
+                    HStack(spacing: 3){
+                        ForEach(0..<4){ num in
+                            buttonOfStyleSetting(styleNum: num)
                         }
                     }
-                    HStack(spacing: 0){
-                        Button(action: {
-                            game.pins[game.playing].style = "制服男"
-                        }){
-                            Image("制服男")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
-                        }
-                        Button(action: {
-                            game.pins[game.playing].style = "制服女"
-                        }){
-                            Image("制服女")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
-                        }
-                        Button(action: {
-                            game.pins[game.playing].style = "スカート"
-                        }){
-                            Image("スカート")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
-                        }
-                        Button(action: {
-                            game.pins[game.playing].style = "可愛い"
-                        }){
-                            Image("可愛い")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .border(Color.black)
+                    // 2列目
+                    HStack(spacing: 3){
+                        ForEach(4..<8){ num in
+                            buttonOfStyleSetting(styleNum: num)
                         }
                     }
                 }.frame(width: w/5)
                 
                 VStack{
-                    Text("夢は？")
+                    Text("\(game.pins[game.playing].name)、夢は？")
+                        .font(.system(.title3, design: .serif))
                     TextField("\(game.pins[game.playing].name) の 夢",
                               text: $game.pins[game.playing].dream)
                         .frame(width: 150, height: 30)
                         .border(Color.black)
                     
-                    Text("夢の目標金額")
+                    Text("\n夢の目標金額")
+                        .font(.system(.title3, design: .serif))
                     
-                    HStack{
-                        Button(action: {
-                            needMoney = 10000000
-                        }){
-                            Text("¥10000000")
-                                .foregroundColor(Color.black)
-                                .frame(width: 100, height: 30)
-                                .background(Color.white)
-                                .border(Color.black)
-                        }
-                        if needMoney==10000000 {
-                            Image(systemName: "arrowtriangle.left.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(Color.black)
-                        }
-                    }
-                    
-                    HStack{
-                        Button(action: {
-                            needMoney = 7500000
-                        }){
-                            Text("¥7500000")
-                                .foregroundColor(Color.black)
-                                .frame(width: 100, height: 30)
-                                .background(Color.white)
-                                .border(Color.black)
-                        }
-                        if needMoney==7500000 {
-                            Image(systemName: "arrowtriangle.left.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(Color.black)
-                        }
-                    }
-                    
-                    HStack{
-                        Button(action: {
-                            needMoney = 5000000
-                        }){
-                            Text("¥5000000")
-                                .foregroundColor(Color.black)
-                                .frame(width: 100, height: 30)
-                                .background(Color.white)
-                                .border(Color.black)
-                        }
-                        if needMoney==5000000 {
-                            Image(systemName: "arrowtriangle.left.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(Color.black)
-                        }
-                    }
-                    
-                    HStack{
-                        Button(action: {
-                            needMoney = 2500000
-                        }){
-                            Text("¥2500000")
-                                .foregroundColor(Color.black)
-                                .frame(width: 100, height: 30)
-                                .background(Color.white)
-                                .border(Color.black)
-                        }
-                        if needMoney==2500000 {
-                            Image(systemName: "arrowtriangle.left.fill")
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(Color.black)
-                        }
+                    ForEach(0..<4){ num in
+                        buttonOfNeedMoneySetting(num: num)
                     }
                 }.frame(width: w/5)
                 
@@ -404,7 +251,7 @@ struct pinInfoSetView: View {
                     Text("色：\(game.pins[game.playing].color)")
                     Text("服：\(game.pins[game.playing].style)")
                     Text("夢：\(game.pins[game.playing].dream)")
-                    Text("目標金額：\(needMoney)")
+                    Text("目標金額：\(game.pins[game.playing].needMoney)")
                     Text("スコア倍率：")
                     
                     Button(action: {
@@ -436,30 +283,112 @@ struct pinInfoSetView: View {
     }
 }
 
+// ForEachでピンの色を変更するボタンを表示させる
+struct buttonOfColorSetting: View {
+    @ObservedObject var game: GameManager = .game
+    let colorNum: Int
+    let colorList = ["赤", "青", "緑", "黄", "紫", "桃", "橙", "黒"]
+    let colorMod = [Color.red, Color.blue, Color.green, Color.yellow,
+                    Color.purple, Color.pink, Color.orange, Color.black]
+    
+    var body: some View {
+        Button(action: {
+            game.pins[game.playing].color = colorList[colorNum]
+        }){
+            Text("\(colorList[colorNum])")
+                .frame(width: 50, height: 50)
+                .foregroundColor(Color.white)
+                .background(colorMod[colorNum])
+                .border(Color.black)
+                .cornerRadius(5)
+        }
+    }
+}
+// ForEachでピンの服を変更するボタンを表示させる
+struct buttonOfStyleSetting: View {
+    @ObservedObject var game: GameManager = .game
+    let styleNum: Int
+    let styleList = ["ワイシャツ", "コート男", "バカトレーナー", "バカTシャツ",
+                     "制服男", "制服女", "スカート", "可愛い"]
+    var body: some View {
+        Button(action: {
+            game.pins[game.playing].style = styleList[styleNum]
+        }){
+            Image("\(styleList[styleNum])")
+                .resizable()
+                .frame(width: 50, height: 50)
+                .border(Color.black)
+                .cornerRadius(5)
+        }
+    }
+}
+// ForEachで目標金額を変更するボタンを表示させる
+struct buttonOfNeedMoneySetting: View {
+    @ObservedObject var game: GameManager = .game
+    let num: Int
+    let valueList = [10000000, 7500000, 5000000, 2500000]
+    let valueListStr = ["¥10,000,000", "¥7,500,000", "¥5,000,000", "¥2,500,000"]
+    var body: some View {
+        HStack{
+            HStack{
+                Button(action: {
+                    game.pins[game.playing].needMoney = valueList[num]
+                }){
+                    Text("\(valueListStr[num])")
+                        .italic()
+                        .foregroundColor(Color.black)
+                        .frame(width: 100, height: 30)
+                        .background(Color.white)
+                        .border(Color.black)
+                }
+                if game.pins[game.playing].needMoney==valueList[num] {
+                    Image(systemName: "arrowtriangle.left.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(Color.black)
+                }
+            }
+        }
+    }
+}
+
+/// 5秒のカウントの後、playViewに移行
 struct LoadingView: View {
     @ObservedObject var game: GameManager = .game
     @State var timer: Timer!
-    @State var count = 0
+    @State var count = 5
     var body: some View {
         ZStack{
             VStack{
                 Button(action: {game.display = "Play"}){
                     Text("Play")
                 }
-                HStack{
+                HStack(spacing: 30){
                     ForEach(0..<game.pins.count){ i in
                         VStack{
-                            Text("夢\(game.pins[i].dream)")
+                            Text("\(game.pins[i].name)")
+                            Text("夢：\(game.pins[i].dream)")
                             //Text("¥\(game.pins[0].needMoney)")
                             pinSkin(num: i, size: CGFloat(0.7))
-                                
-                            Text("\(game.pins[i].name)")
                         }
                     }
                    
                 }
                 Text("開始まで\(count)秒")
             }
+        }.onAppear(){start()}
+    }
+    func start() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true){ _ in
+            count -= 1
+            if count == 0 {
+                stop()
+            }
         }
+    }
+    
+    func stop() {
+        timer?.invalidate()
+        game.display = "Play"
     }
 }

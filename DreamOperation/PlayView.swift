@@ -32,7 +32,7 @@ struct PlayView: View {
                     
                     ForEach(0..<game.pins.count){ i in
                         pinSkin(num: i, size: CGFloat(0.3))
-                            .position(x: game.stepPosi[game.pinposi[i]].x, y: game.stepPosi[game.pinposi[i]].y-w/40)
+                            .position(x: game.stepPosi[game.pinposi[i]].x, y: game.stepPosi[game.pinposi[i]].y-w/20)
                             .opacity(game.pinClear[i])
                     }
                 }
@@ -52,39 +52,22 @@ struct PlayView: View {
                         game.position.width += value.translation.width
                     }
             )
-            HStack{
-                VStack{
-                    HStack{
-                        Button("←"){if game.pinposi[0]>=1{game.pinposi[0]-=1}}
-                        Button("1"){}
-                        Button("→"){game.pinposi[0]+=1}
-                    }
-                }
-                
-                VStack{
-                    HStack{
-                        Button("←"){if game.pinposi[1]>=1{game.pinposi[1]-=1}}
-                        Button("2"){}
-                        Button("→"){game.pinposi[1]+=1}
-                    }
-                }
-            }// HS
             
             
-            VStack{
-                // DebugView
-                HStack{
-                    VStack{
-                        Text("マップ")
-                        Text("x:\(game.position.width + game.dragOffset.width + drag.width) ")
-                        Text("y:\(game.position.height + game.dragOffset.height + drag.height) ")
-                    }
-                    Text("ピン1: \(game.pinposi[0])")
-                    Text("ピン2: \(game.pinposi[1])")
-                    Spacer()
-                }
-                Spacer()
-            }
+//            VStack{
+//                // DebugView
+//                HStack{
+//                    VStack{
+//                        Text("マップ")
+//                        Text("x:\(game.position.width + game.dragOffset.width + drag.width) ")
+//                        Text("y:\(game.position.height + game.dragOffset.height + drag.height) ")
+//                    }
+//                    Text("ピン1: \(game.pinposi[0])")
+//                    Text("ピン2: \(game.pinposi[1])")
+//                    Spacer()
+//                }
+//                Spacer()
+//            }
             Spacer()
             VStack {
                 Spacer()
@@ -96,9 +79,6 @@ struct PlayView: View {
                             dice = true
                             // 背景を半透明にする
                             game.clearView = 0.5
-                            game.createPosi(health: game.health)
-                            // ルーレットをスタート
-                            game.start()
                         }
                     } else if game.walk {
                         

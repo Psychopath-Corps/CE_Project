@@ -31,9 +31,9 @@ struct DisplayView: View {
                         .background(Color.white.opacity(game.clearView))
                 }
             }
-        } else if game.display == "game" {
+        } else if game.display == "" {
             
-        } else if game.display == "setting" {
+        } else if game.display == "" {
             
         } else if game.display == "" {
             
